@@ -13,7 +13,7 @@ namespace Titli.UI
             instance = this;
         }
         public GameObject exitPopup;
-#if UNITY_ANDROID
+//#if UNITY_ANDROID
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape) && Titli_UiHandler.Instance.isBetPlaced)
@@ -21,10 +21,10 @@ namespace Titli.UI
                 exitPopup.SetActive(true);
             }
         }
-#endif
+//#endif
         public void onExitpopup()
         {
-        if(Titli_UiHandler.Instance.isBetPlaced)
+        //if(Titli_UiHandler.Instance.isBetPlaced)
             exitPopup.SetActive(true);
         }
 

@@ -141,7 +141,7 @@ namespace Titli.UI
                 }
                 else
                 {
-                    Debug.Log("Reachable=====");
+                    //Debug.Log("Reachable=====");
                     if (isInternetGone)
                     {
                         Debug.Log("Reachable Exit lobby and relaod=====");
@@ -1033,16 +1033,16 @@ namespace Titli.UI
         
         public void ExitLobby()
         {
-            if (Titli_UiHandler.Instance.isBetPlaced)
-            {
+            //if (Titli_UiHandler.Instance.isBetPlaced)
+            //{
                 AndroidExit.instance.onExitpopup();
 
-            }
-            else
-            {
-                Titli_ServerRequest.instance.LeaveRoom();
-                BgSound.Stop();
-            }
+            //}
+            //else
+            //{
+            //    Titli_ServerRequest.instance.LeaveRoom();
+            //    BgSound.Stop();
+            //}
         
         }
         public CurrentTimer currentTimer;
