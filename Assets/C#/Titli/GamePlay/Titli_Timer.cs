@@ -25,6 +25,7 @@ namespace Titli.Gameplay
         public static gameState gamestate;
        public TMP_Text countdownTxt, waittext;
         public Text todaywin;
+        [Header ("First Time rotate wheel")]
         public GameObject WheelToRotate;
         // [SerializeField] TMP_Text messageTxt;
         private void Awake()
@@ -236,11 +237,13 @@ namespace Titli.Gameplay
 
         }
 
+
+        //first round of wheel fast rotation.
         public AnimationCurve rotationCurve;
         private IEnumerator Rotate360Degrees()
         {
             float totalRotation = 0f;
-            float duration = 8f; // Reduced total time for the rotation to make it faster
+            float duration = 9f; // Reduced total time for the rotation to make it faster
             float elapsedTime = 0f;
 
             while (elapsedTime < duration)
@@ -252,7 +255,7 @@ namespace Titli.Gameplay
                 float speedFactor = rotationCurve.Evaluate(t);
 
                 // Calculate rotation for this frame
-                float rotationThisFrame = speedFactor * 360 * Time.deltaTime * 5; // Increase rotation speed
+                float rotationThisFrame = speedFactor * 360 * Time.deltaTime * 1; // Increase rotation speed
 
                 // Apply rotation to the GameObject
                 WheelToRotate.transform.Rotate(0, 0, -rotationThisFrame);
@@ -266,125 +269,14 @@ namespace Titli.Gameplay
                 // Wait until next frame
                 yield return null;
             }
+
+
         }
 
 
-        //Local Timer Start countdown
-        // IEnumerator TimerStartCountDown(int timer = 25)
-        // {
-        //     Debug.Log("timer count down start");
-        //     gamestate = gameState.canBet;
 
-        //     // Titli_CardController.Instance._winNo = true;
-        //     for(int i = timer; i >= 0; i--)
-        //     {
-        //         if (i == 1)
-        //         {
-        //             startCountDown?.Invoke();
-        //         }
-        //         messageTxt.text = "Bettting Time";
-        //         countdownTxt.text = i.ToString();
-        //         yield return new WaitForSecondsRealtime(1f);
-        //     }
-        //     Titli_CardController.Instance._canPlaceBet = true;
-        //     StartCoroutine(TimeUpCountDown());
-        //     onTimeUp?.Invoke();
-        // }
-
-
-
-        //Local Timer timeUp Countdown
-        // IEnumerator TimeUpCountDown(int timer = 5)
-        // {
-        //     gamestate = gameState.cannotBet;
-        //     onTimeUp?.Invoke();
-
-        //     Titli_CardController.Instance._startCardBlink = true;
-        //     Titli_CardController.Instance._canPlaceBet = false;
-        //     foreach(var item in Titli_CardController.Instance._cardsImage)
-        //     {
-        //         item.GetComponent<Button>().interactable = false;
-        //     }
-        //     // Titli_ServerResponse.Instance.OnWinFunction();
-        //     Titli_CardController.Instance.CardBlink_coroutine = Titli_CardController.Instance.CardsBlink();
-        //     StartCoroutine(Titli_CardController.Instance.CardsBlink());
-        //     // Titli_CardController.Instance._winNo = true;
-        //     for(int i = timer; i >= 0; i--)
-        //     {
-        //         if(i == 2)
-        //         {
-        //             Titli_CardController.Instance._winNo = true;
-        //             // Titli_ServerResponse.Instance.OnWinFunction();
-        //         }
-        //         messageTxt.text = "Time Up";
-        //         countdownTxt.text = i.ToString();
-        //         yield return new WaitForSecondsRealtime(2f);
-        //     }
-        // }
-
-        // IEnumerator WaitCountdown(int time = -1)
-        // {
-        //     gamestate = gameState.wait;
-        //     Titli_CardController.Instance._canPlaceBet = false;
-        //     for (int i = time != -1 ? time : waitTimer; i >= 0; i--)
-        //     {
-        //         messageTxt.text = "Wait Time";
-        //         countdownTxt.text = i.ToString();
-        //         yield return new WaitForSecondsRealtime(1f);
-        //     }
-
-        // }
-
-
-
-
-        // public void OnTimerStart()
-        // {
-        //     if (is_a_FirstRound)
-        //     {
-        //         Titli_UiHandler.Instance.HideMessage();
-        //     }
-        //     is_a_FirstRound = false;
-        //     Titli_CardController.Instance._startCardBlink = false;
-        //     Titli_CardController.Instance._canPlaceBet = true;
-
-        //     StopCoroutines();
-        //     Stop_CountDown = TimerStartCountDown();
-        //     Debug.Log("timer start");
-        //     // StartCoroutine(TimerStartCountDown());
-        //     StartCoroutine(Stop_CountDown);
-        //     // StartCoroutine(Countdown());
-        // }
-
-
-
-        // public void OnTimeUp()
-        // {
-        //     if (is_a_FirstRound) return;
-        //     Titli_CardController.Instance._canPlaceBet = false;
-        //     StopCoroutines();
-        //     StopCoroutine(Stop_CountDown);
-        //     StartCoroutine(onTimeUpcountDown());
-        // }
-
-        // public void OnWait(object data)
-        // {            
-        //     StopCoroutines();
-        //     // StartCoroutine(StartDragonAnim());           
-        //     if (is_a_FirstRound) return;
-        //     // StartCoroutine(WOF_UiHandler.Instance.StartImageAnimation());
-        //     StopCoroutines();
-        //     StartCoroutine(WaitCountdown());
-        // }
         public bool is_a_FirstRound = true;
-        
-
-        // public void StopCoroutines()
-        // {
-        //     StopCoroutine(Countdown());
-        //     StopCoroutine(TimeUpCountdown());
-        //     StopCoroutine(WaitCountdown());
-        // }
+   
     }
     [Serializable]
     public class CurrentTimer

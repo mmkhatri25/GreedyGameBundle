@@ -23,8 +23,10 @@ namespace Titli.Gameplay
         public AudioSource CoinMove_AudioSource;
         public List<GameObject> TableObjs;
         public Transform needle;
+
+        [Header ("Spin final to item")]
         public Transform wheel;
-        public float spinDuration = 1f;
+        public float spinDuration = 3f;
         public GameObject[] ItemsForSpin;
 
         void Awake()
@@ -42,8 +44,13 @@ namespace Titli.Gameplay
         public IEnumerator CardsBlink(int winno)
         {
             int round = 0;
+            Debug.Log($"needle: {needle}, winno: {winno}");
             if (needle != null)
-                SpinToItem(ItemsForSpin[winno].gameObject);
+            {
+                if (winno != 9 && winno != 8)
+                    SpinToItem(ItemsForSpin[winno].gameObject);
+
+            }
             else
             while ( round <= _cardsImage.Count + winno)
             {   for (int i = 0; i < _cardsImage.Count; i++)
@@ -85,7 +92,7 @@ namespace Titli.Gameplay
         }
 
 
-        //New spin after
+        //New spin after first
         public void SpinToItem(GameObject targetItem)
         {
             Debug.Log("SpinToItem = "+ targetItem.name);
@@ -102,23 +109,10 @@ namespace Titli.Gameplay
 
             // Calculate the angle for each item
             float anglePerItem = 360.0f / ItemsForSpin.Length;
-
-            // Calculate the final rotation angle needed to bring the item to the top (aligned with the notch)
             float targetAngle = anglePerItem * itemIndex;
-
-            // Normalize the target angle within the range [0, 360]
             targetAngle = targetAngle % 360;
-
-            // Calculate the current angle of the wheel
             float currentAngle = wheel.rotation.eulerAngles.z;
-
-            // Calculate the shortest rotation direction (clockwise or counterclockwise)
             float rotationAngle = Mathf.DeltaAngle(currentAngle, targetAngle);
-
-            // Calculate the total rotation angle needed (3 full rotations + target alignment)
-            //totalRotationAngle = 1080.0f + rotationAngle;
-
-            // Start the coroutine to spin the wheel
             Debug.Log("SpinToItem rotationAngle = " + rotationAngle);
 
             StartCoroutine(SpinWheel(rotationAngle));
@@ -128,11 +122,7 @@ namespace Titli.Gameplay
         {
             float elapsedTime = 0.0f;
             float startAngle = wheel.rotation.eulerAngles.z;
-
-            // Determine the final angle after spinning three rounds plus target alignment
             float finalAngle = startAngle + totalRotationAngle;
-
-            // Calculate the duration based on the total rotation angle
             float rotationDuration = spinDuration; // Adjust this if needed
 
             while (elapsedTime < rotationDuration)
@@ -155,33 +145,12 @@ namespace Titli.Gameplay
             // Snap to the exact final angle
             wheel.rotation = Quaternion.Euler(0, 0, finalAngle);
 
+            yield return new WaitForSeconds(3f);
+            wheel.rotation = Quaternion.Euler(0, 0, finalAngle);
+
 
             Debug.Log($"SpinWheel Final Angle: {wheel.rotation.eulerAngles.z}");
         }
 
-
-        //public void RotateNeedleToTarget(GameObject target, float duration)
-        //{
-        //    StartCoroutine(RotateNeedleCoroutine(target.transform.position, duration));
-        //}
-
-        //private IEnumerator RotateNeedleCoroutine(Vector3 targetPosition, float duration)
-        //{
-        //    Vector3 directionToTarget = targetPosition - needle.position;
-        //    float targetAngle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg - 90f;
-        //    float startAngle = needle.eulerAngles.z;
-        //    float elapsedTime = 0f;
-
-        //    while (elapsedTime < duration)
-        //    {
-        //        elapsedTime += Time.deltaTime;
-        //        float currentAngle = Mathf.LerpAngle(startAngle, targetAngle, elapsedTime / duration);
-        //        needle.rotation = Quaternion.Euler(0, 0, currentAngle);
-        //        yield return null;
-        //    }
-        //    needle.rotation = Quaternion.Euler(0, 0, targetAngle);
-        //    yield return new WaitForSeconds(6f);
-        //    needle.rotation = Quaternion.Euler(0, 0, 0);
-        //}
     }
 }

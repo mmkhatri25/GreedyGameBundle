@@ -22,8 +22,27 @@ namespace Titli.Gameplay
         [Header("Top 3 Winner Section")]
         [SerializeField] Image Winner1Dp; [SerializeField] Image Winner2Dp; [SerializeField] Image Winner3Dp;
         [SerializeField] Text Winner1Name, Winner2Name, Winner3Name;
-        [SerializeField] Text Winner1WinCoins, Winner2WinCoins, Winner3WinCoins; 
-        
+        [SerializeField] Text Winner1WinCoins, Winner2WinCoins, Winner3WinCoins;
+
+        public Sprite DefaultSprite;
+        public static Titli_RoundWinningHandler Instance;
+        [SerializeField] List<GameObject> WinningRing;
+        public Sprite[] Imgs;
+        public Image[] previousWins;
+        public List<int> PreviousWinValue;
+        bool isTimeUp;
+        int win_no;
+        public double balance_amt, win_amount, total_bet;
+        public GameObject Win_Panel, win_amount_desc, No_Win_Description;
+        public Text Win_amount_text, Total_Bet_text, TodayWinText;
+        public Image Win_Image, Win_Image_other;
+
+        //loss 
+        public Text Lost_amount_text, Lost_Bet_text;
+
+
+
+
         //Set top 3 Winners Data 
         void SetWinnersData(List<string> names, List<string> dpUrl, List<double> winAmount)
         {
@@ -53,7 +72,8 @@ namespace Titli.Gameplay
 
 
        //download images
-            public  IEnumerator SetImageFromURL(string pictureURL,Image imageView){
+        public  IEnumerator SetImageFromURL(string pictureURL,Image imageView)
+        {
             if (pictureURL.Length > 0) {
                 WWW www = new WWW(pictureURL);  
 
@@ -72,56 +92,6 @@ namespace Titli.Gameplay
                 imageView.GetComponent<Image>().overrideSprite = DefaultSprite;  
             }
         }
-
-
-        //   public static async Task<Texture2D> GetRemoteTexture ( string url, Image raw , Sprite sprite1 )
-        //   { 
-        //         using( UnityWebRequest www = UnityWebRequestTexture.GetTexture(url) )
-        //         {
-        //    // begin request:
-        //    var asyncOp = www.SendWebRequest();
-
-        //    // await until it's done: 
-        //    while( asyncOp.isDone==false )
-        //        await Task.Delay( 1000/30 );//30 hertz
-
-        //    // read results:
-        //   // if( www.isNetworkError || www.isHttpError )
-        //     if( www.result!=UnityWebRequest.Result.Success )// for Unity >= 2020.1
-        //    {
-        //        // log error:
-        //        #if DEBUG
-        //        Debug.Log( $"{www.error}, URL:{www.url}" );
-        //        #endif
-
-        //        return null;
-        //    }
-        //    else
-        //    {
-        //                Texture2D tex = DownloadHandlerTexture.GetContent(www);
-        //     sprite1 = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(tex.width / 2, tex.height / 2));
-        //        //raw.sprite = tex;
-        //        return DownloadHandlerTexture.GetContent(www);
-        //    }
-        //}
-        //}
-
-
-        public  Sprite DefaultSprite;
-        public static Titli_RoundWinningHandler Instance;
-        [SerializeField] List<GameObject> WinningRing;
-        public Sprite[] Imgs;
-        public Image[] previousWins;
-        public List<int> PreviousWinValue;
-        bool isTimeUp;
-        int win_no;
-        public double balance_amt, win_amount, total_bet;
-        public GameObject Win_Panel, win_amount_desc, No_Win_Description;
-        public Text Win_amount_text, Total_Bet_text, TodayWinText;
-        public Image Win_Image,Win_Image_other;
-
-        //loss 
-        public Text Lost_amount_text, Lost_Bet_text;
 
 
         private void Awake()
@@ -154,42 +124,13 @@ namespace Titli.Gameplay
                     winData.previousWins.RemoveAt(0);
                 }
             }
-            //TodayWinText.text = winData.userDailyWin.ToString();
             PreviousWinValue = winData.previousWins;
             PreviousWinValue.Reverse();
-            // Debug.Log("Previous win"+ PreviousWinValue.Count);
-
-            // yield return new WaitUntil( () => Imgs.Length == 8 );
-            //PreviousWinValue.RemoveAt(0);
-            //PreviousWinValue.Add(9);
             for (int i = 0; i < PreviousWinValue.Count; i++)
             {
                 previousWins[i].sprite = Imgs[PreviousWinValue[i]];
                 previousWins[i].gameObject.SetActive(true);
             }
-
-            //for (int i = 0; i < previousWins.Length; i++)
-            //{
-            //   // if ( PreviousWinValue[i] > -1 && PreviousWinValue[i] > 9 ) continue;
-            //    previousWins[i].sprite = Imgs[PreviousWinValue[i]];
-            //    previousWins[i].gameObject.SetActive(true);
-            //    // int num = winData.previousWins[i];
-            //    // if (num == 0)
-            //    // {
-            //    //     previousWins[i].sprite = Imgs[0];//dragon
-            //    // }
-            //    // else if (num == 1)
-            //    // {
-            //    //     previousWins[i].sprite = Imgs[1];//tie
-            //    // }
-            //    // else
-            //    // {
-            //    //     previousWins[i].sprite = Imgs[2];//tiger
-            //    // }
-            //    // previousWins[i].gameObject.SetActive(true);
-            //    //previousWins[i].gameObject.transform.GetChild(0).GetComponent<Text>().text = totalDiceNo.ToString();
-
-            //}
         }
         IEnumerator showtoastforA(DiceWinNos winData)
         {
@@ -197,43 +138,12 @@ namespace Titli.Gameplay
 
             if (winData.data.status != null && winData.data.status == "false")
             {
-                Debug.Log(winData.data.status + "  " + winData.data.status  );
-                AndroidToastMsg.ShowAndroidToastMessage(" coin not added ");                
+                Debug.Log(winData.data.status + "  " + winData.data.status);
+                AndroidToastMsg.ShowAndroidToastMessage(" coin not added ");
             }
-            // else if (winData.data.message != null  && winData.data.message.status == 400) 
-            // {
-            //     Debug.Log(winData.data.message.message);
-            //     AndroidToastMsg.ShowAndroidToastMessage(winData.data.message.message);
-            // } 
         }
-        // IEnumerator showtoastforB(DiceWinNos2 winData2 )
-        // {
-        //     yield return null;
-        //     if (winData2.data.message != null  && winData2.data.message.status == 400) 
-        //     {
-        //         Debug.Log(winData2.data.message.message);
-        //         AndroidToastMsg.ShowAndroidToastMessage(winData2.data.message.message);
-        //     }                
-            
-        // }
-        
-        // getData(object o)
-        // {
-        //     try
-        //     {
-        //         DiceWinNos winData = Utility.Utility.GetObjectOfType<DiceWinNos>(o);
-        //         StartCoroutine(showtoastforA(winData));
-        //         return winData;
-        //     }
-        //     catch (System.Exception)
-        //     {
-        //         DiceWinNos2 winData = Utility.Utility.GetObjectOfType<DiceWinNos2>(o);
-        //         StartCoroutine(showtoastforB(winData));
-        //         throw;
-        //     }
-        // }
-            public Root player;
-        
+
+        public Root player;
         public void OnWin(object o)
         {
             PlayerPrefs.SetInt("isBetPlaced", 0);
@@ -265,7 +175,7 @@ namespace Titli.Gameplay
 
             if (player.userIds.Count > 0)
             {
-                //print("hereee... win");
+                print("hereee... win");
                 for (int i = 0; i < player.userIds.Count; i++)
                 {
                     //print("I am checking 1 ...." + PlayerPrefs.GetString("userId"));
@@ -275,6 +185,7 @@ namespace Titli.Gameplay
                         //print("yes I am exists ...." + player.userIds[i].win);
 
                         win_no = player.winNo;
+                        //win_no = 9;
                         balance_amt = player.userIds[i].balance;
                         win_amount = player.userIds[i].win;
                         total_bet = player.userIds[i].bat;
@@ -312,14 +223,14 @@ namespace Titli.Gameplay
                                 StartCoroutine(ShowWinningRing(WinningRing[win_no], Spots.chicken, player.previousWin_single));
                                 //Debug.Log("  chicken - " + win_amount);
                                 break;
-                           case 8:
-                        StartCoroutine(ShowWinningRing(WinningRing[win_no], Spots.veg, player.previousWin_single));
+                            case 8:
+                                 StartCoroutine(ShowWinningRing(WinningRing[win_no], Spots.veg, player.previousWin_single));
                         //Debug.Log("  veg - " + win_amount);
-                        break;
-                    case 9:
-                        StartCoroutine(ShowWinningRing(WinningRing[win_no], Spots.nonveg, player.previousWin_single));
-                        //Debug.Log("  nonveg - " + win_amount);
-                        break;
+                                 break;
+                            case 9:
+                                StartCoroutine(ShowWinningRing(WinningRing[win_no], Spots.nonveg, player.previousWin_single));
+                             Debug.Log("  nonveg - " + win_amount);
+                                break;
                             default:
                                 Debug.Log("Invalid Win No");
                                 break;
@@ -329,9 +240,11 @@ namespace Titli.Gameplay
                     }
                     else
                     {
-                        //print("I am in else part of win....");
+                        print("I am in else part of win....");
                         win_no = player.winNo;
-                        
+                        //win_no = 9;
+
+
                         //balance_amt = player.Balance;
                         win_amount = 0;
                         switch (win_no)
@@ -368,14 +281,14 @@ namespace Titli.Gameplay
                                 StartCoroutine(ShowWinningRing(WinningRing[win_no], Spots.chicken, player.previousWin_single));
                                 //Debug.Log("  chicken - " + win_amount);
                                 break;
-                              case 8:
-                        StartCoroutine(ShowWinningRing(WinningRing[win_no], Spots.veg, player.previousWin_single));
-                        //Debug.Log("  veg - " + win_amount);
-                        break;
-                    case 9:
-                        StartCoroutine(ShowWinningRing(WinningRing[win_no], Spots.nonveg, player.previousWin_single));
-                        //Debug.Log("  nonveg - " + win_amount);
-                        break;
+                             case 8:
+                               StartCoroutine(ShowWinningRing(WinningRing[win_no], Spots.veg, player.previousWin_single));
+                              //Debug.Log("  veg - " + win_amount);
+                             break;
+                             case 9:
+                                  StartCoroutine(ShowWinningRing(WinningRing[win_no], Spots.nonveg, player.previousWin_single));
+                                 Debug.Log("  nonveg - " + win_amount);
+                                 break;
                             default:
                                 //Debug.Log("Invalid Win No");
                                 break;
@@ -387,8 +300,9 @@ namespace Titli.Gameplay
             {
 
                 win_no = player.winNo;
-                //print("hereee... win -  "+ player.winNo);
-                        //balance_amt = player.Balance;
+                //win_no = 9;
+                print("hereee... win -  "+ player.winNo);
+                //balance_amt = player.Balance;
                 win_amount = 0;
                 switch (win_no)
                 {
@@ -430,7 +344,7 @@ namespace Titli.Gameplay
                         break;
                     case 9:
                         StartCoroutine(ShowWinningRing(WinningRing[win_no], Spots.nonveg, player.previousWin_single));
-                        //Debug.Log("  nonveg - " + win_amount);
+                        Debug.Log("  nonveg - " + win_amount);
                         break;
                    default:
                        
@@ -544,18 +458,29 @@ namespace Titli.Gameplay
 
 
             ring.SetActive(true); 
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(0.4f);
             ring.SetActive(false);
             
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(0.4f);
             ring.SetActive(true);
             
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(0.4f);
             ring.SetActive(false);
              
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(0.4f);
             ring.SetActive(true);
-             
+
+            ring.SetActive(false);
+            yield return new WaitForSeconds(0.4f);
+      
+            ring.SetActive(true);
+
+            yield return new WaitForSeconds(0.4f);
+            ring.SetActive(false);
+
+            yield return new WaitForSeconds(0.4f);
+            ring.SetActive(true);
+
             yield return new WaitForSeconds(2f);
             ring.SetActive(false);
             
