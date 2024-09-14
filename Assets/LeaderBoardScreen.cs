@@ -19,6 +19,7 @@ namespace Titli.Gameplay
     public class LeaderBoardScreen : MonoBehaviour
     {
         public Transform m_ContentContainer, m_ContentContainerDaily;
+        public Transform WeeklyContainer, DailyContainer;
         public DynamicScrollView WeeklyDynamicView, DailyDynamicView;
         //public scroll
         public GameObject m_ItemPrefab;
@@ -35,6 +36,7 @@ namespace Titli.Gameplay
         public RootDailyUsers winData;
         public GameObject Loadingbg;
         public static LeaderBoardScreen instance;
+       
         private void Awake()
         {
             instance = this;
@@ -50,86 +52,59 @@ namespace Titli.Gameplay
             yield return new WaitForSeconds(2f);
             Playernewdata player = new Playernewdata() { userId = PlayerPrefs.GetString("userId") };
             Titli_ServerRequest.instance.socket.Emit(Events.winnerList, new JSONObject(Newtonsoft.Json.JsonConvert.SerializeObject(player)), HandleAction);
-           
-           
         }
-
+   
         void HandleAction(JSONObject obj)
         {
             string mystr = obj.ToString().Substring(1, obj.ToString().Length - 2);
-            //print("winData lists  - " + mystr);
+            print("winData HandleAction  - " + mystr);
             
             JSONObject abc = obj;
             winData = JsonUtility.FromJson<RootDailyUsers>(mystr);
-            //ShowDailyList();
-            //ShowDailyList();
+            if(isWeekly)
+            PopulateRankItems(m_ContentContainer, winData.weekly);
+            else
+            DailyPopulateRankItems(m_ContentContainerDaily, winData.daily);
             SetupLastWinner();
 
+
         }
+      
         public void ShowWeeklyList()
         {
+            isWeekly = true;
             // show loader
             Loadingbg.SetActive(true);
             print("ShowWeeklyList");
 
-            Playernewdata player = new Playernewdata() { userId = PlayerPrefs.GetString("userId") };
-            Titli_ServerRequest.instance.socket.Emit(Events.winnerList, new JSONObject(Newtonsoft.Json.JsonConvert.SerializeObject(player)), HandleAction);
-           
-            PopulateRankItems(m_ContentContainer, winData.weekly);
+            //Playernewdata player = new Playernewdata() { userId = PlayerPrefs.GetString("userId") };
+            //Titli_ServerRequest.instance.socket.Emit(Events.winnerList, new JSONObject(Newtonsoft.Json.JsonConvert.SerializeObject(player)), HandleAction);
+            //Debug.Log("ShowWeeklyList -- " + Events.winnerList);
+            StartCoroutine(showTopwinners());
+            //PopulateRankItems(m_ContentContainer, winData.weekly);
+            //DailyPopulateRankItems(m_ContentContainerDaily, winData.daily);
         }
         public void ShowDailyList()
         {
+            isWeekly = false;
+
             // show loader
             print("ShowDailyList");
             Loadingbg.SetActive(true);
 
-            Playernewdata player = new Playernewdata() { userId = PlayerPrefs.GetString("userId") };
-            Titli_ServerRequest.instance.socket.Emit(Events.winnerList, new JSONObject(Newtonsoft.Json.JsonConvert.SerializeObject(player)), HandleAction);
-           
-            DailyPopulateRankItems(m_ContentContainerDaily, winData.daily);
+            //Playernewdata player = new Playernewdata() { userId = PlayerPrefs.GetString("userId") };
+            //Titli_ServerRequest.instance.socket.Emit(Events.winnerList, new JSONObject(Newtonsoft.Json.JsonConvert.SerializeObject(player)), HandleAction);
+
+            StartCoroutine(showTopwinners());
+            //DailyPopulateRankItems(m_ContentContainerDaily, winData.daily);
         }
 
 
-        //void PopulateRankItems(Transform m_transform, List<WeeklyTopUsers> root)
-        //{
-        //    print("PopulateRankItems");
-
-        //    Loadingbg.SetActive(true);
-        //    foreach (Transform child in m_transform) { Destroy(child.gameObject); }
-        //     if (root.Count<=0)
-        //      SetPlayerRanking((0).ToString(), true);
-        //     else
-        //      SetPlayerRanking((root.Count+1).ToString(), true);
-
-
-        //     for (int i = 0; i < root.Count; i++)
-        //    {
-        //        var item_go = Instantiate(m_ItemPrefab);
-        //        if (PlayerPrefs.GetString("userId") == root[i].userId)
-        //        {
-        //            SetPlayerRanking((i + 1).ToString(), true);
-        //            print("exists... " + root[i].userId);
-        //        }
-        //            // else
-        //            //SetPlayerRanking(root.Count+"+", true);
-        //        item_go.transform.SetParent(m_transform);
-        //        item_go.transform.localScale = Vector2.one;
-        //        item_go.GetComponent<RankitemSetup>().Username.text = root[i].name;
-        //        item_go.GetComponent<RankitemSetup>().winAmount.text = root[i].amount.ToString();
-        //        item_go.GetComponent<RankitemSetup>().UserRank.text = (i + 1).ToString();
-        //        //Loadingbg.SetActive(false);
-        //        //StartCoroutine(SetImageFromURL(root[i].profile_pic, item_go.GetComponent<RankitemSetup>().dp));
-        //    }
-        //}
         public List<WeeklyTopUsers> weeklyUsers;
         public ScrollRect scrollRect, scrollRectDaily;
 
         void PopulateRankItems(Transform m_transform, List<WeeklyTopUsers> root)
         {
-
-            foreach (Transform child in m_transform) { Destroy(child.gameObject); }
-            weeklyUsers.Clear();
-
             isWeekly = true;
 
             Loadingbg.SetActive(true);
@@ -137,21 +112,22 @@ namespace Titli.Gameplay
             DailyDynamicView.gameObject.SetActive(false);
             weeklyUsers = root;
             WeeklyDynamicView.totalItemCount = root.Count;
-            print("weekly PopulateRankItems");
-            //WeeklyDynamicView.refresh();
+            print("111weekly PopulateRankItems === "+ WeeklyDynamicView.totalItemCount);
 
             scrollRect.verticalNormalizedPosition = 1f;
 
             if (root.Count <= 0)
             {
+                print("222 weekly PopulateRankItems === " + WeeklyDynamicView.totalItemCount);
+
                 SetPlayerRanking("0", true);
                 Loadingbg.SetActive(false); // Deactivate loading background as there are no records to load
             }
             else
             {
-                SetPlayerRanking((root.Count + 1).ToString(), true);
+                print("333 weekly PopulateRankItems === " + WeeklyDynamicView.totalItemCount);
 
-                int loadedCount = 0; // Counter to track loaded images
+                SetPlayerRanking((root.Count + 1).ToString(), true);
 
                 for (int i = 0; i < root.Count; i++)
                 {
@@ -162,27 +138,6 @@ namespace Titli.Gameplay
                         //print("exists... " + root[i].userId);
                     }
 
-                    //item_go.transform.SetParent(m_transform);
-                    //item_go.transform.localScale = Vector2.one;
-                    //item_go.GetComponent<RankitemSetup>().Username.text = root[i].name;
-                    //item_go.GetComponent<RankitemSetup>().winAmount.text = root[i].amount.ToString();
-                    //item_go.GetComponent<RankitemSetup>().UserRank.text = (i + 1).ToString();
-                    //loadedCount++;
-                    //if (loadedCount == root.Count)
-                    //{
-                    //    // Deactivate loading background once all images are loaded
-                    //    StartCoroutine(waitToCloseLoading());
-                    //}
-                    //SetImageFromURL(root[i].profile_pic, item_go.GetComponent<RankitemSetup>().dp, () =>
-                    //{
-                    //    loadedCount++; // Increment the loaded count when an image is loaded
-                    //                   // Check if all images have been loaded
-                    //    if (loadedCount == root.Count)
-                    //    {
-                    //        // Deactivate loading background once all images are loaded
-                    //        Loadingbg.SetActive(false);
-                    //    }
-                    //});
                     Loadingbg.SetActive(false);
                 }
             }
@@ -198,10 +153,6 @@ namespace Titli.Gameplay
         public bool isWeekly;
         void DailyPopulateRankItems(Transform m_transform, List<DailyTopusers> root)
         {
-            //DailyDynamicView.scrollByItemIndex(0);
-
-            foreach (Transform child in m_transform) { Destroy(child.gameObject); }
-            dailyUsers.Clear();
             isWeekly = false;
             Loadingbg.SetActive(true);
 
@@ -211,10 +162,7 @@ namespace Titli.Gameplay
             DailyDynamicView.totalItemCount = root.Count;
             print("daily PopulateRankItems");
             scrollRectDaily.verticalNormalizedPosition = 1f;
-            //WeeklyDynamicView.refresh();
-
-            //foreach (Transform child in m_transform) { Destroy(child.gameObject); }
-            //int loadedCount = 0; // Counter to track loaded images
+      
 
             if (root.Count <= 0)
             {
@@ -230,31 +178,7 @@ namespace Titli.Gameplay
                     if (PlayerPrefs.GetString("userId") == root[i].userId)
                         SetPlayerRanking((i + 1).ToString(), false);
 
-                    //var item_go = Instantiate(m_ItemPrefab);
-                    //item_go.transform.SetParent(m_transform);
-                    //item_go.transform.localScale = Vector2.one;
-                    //item_go.GetComponent<RankitemSetup>().Username.text = root[i].name;
-                    //item_go.GetComponent<RankitemSetup>().winAmount.text = root[i].amount.ToString();
-                    //item_go.GetComponent<RankitemSetup>().UserRank.text = (i + 1).ToString();
-                    //loadedCount++;
-                    //if (loadedCount == root.Count)
-                    //{
-                    //    // Deactivate loading background once all images are loaded
-                    //    //Loadingbg.SetActive(false);
-                    //    StartCoroutine(waitToCloseLoading());
-
-                    //}
-                    // Load image asynchronously
-                    //SetImageFromURL(root[i].profile_pic, item_go.GetComponent<RankitemSetup>().dp, () =>
-                    //{
-                    //    loadedCount++; // Increment the loaded count when an image is loaded
-                    //                   // Check if all images have been loaded
-                    //    if (loadedCount == root.Count)
-                    //    {
-                    //        // Deactivate loading background once all images are loaded
-                    //        Loadingbg.SetActive(false);
-                    //    }
-                    //});
+                   
                 }
                 Loadingbg.SetActive(false);
 
@@ -289,87 +213,6 @@ namespace Titli.Gameplay
 
             onComplete?.Invoke(); // Invoke the onComplete action if provided
         }
-
-        //public IEnumerator SetImageFromURL(string pictureURL, Image imageView, Action onComplete = null)
-        //{
-        //    if (!string.IsNullOrEmpty(pictureURL))
-        //    {
-        //        using (WWW www = new WWW(pictureURL))
-        //        {
-        //            yield return www;
-
-        //            Texture2D ui_texture = www.texture;
-        //            if (ui_texture != null)
-        //            {
-        //                Sprite sprite = Sprite.Create(ui_texture, new Rect(0, 0, ui_texture.width, ui_texture.height), new Vector2(0, 0));
-        //                if (sprite != null)
-        //                {
-        //                    //Debug.Log("ProfilePicUrlSet");
-        //                    imageView.overrideSprite = sprite;
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    onComplete?.Invoke(); // Invoke the onComplete action if provided
-        //}
-
-        //void DailyPopulateRankItems(Transform m_transform, List<DailyTopusers> root)
-        //{
-        //    foreach (Transform child in m_transform) { Destroy(child.gameObject); }
-        //    if (root.Count<=0)
-        //      SetPlayerRanking((0).ToString(), false);
-        //    else
-        //      SetPlayerRanking((root.Count+1).ToString(), false);
-
-        //    for (int i = 0; i < root.Count; i++)
-        //    {
-        //        if (PlayerPrefs.GetString("userId") == root[i].userId)
-        //            SetPlayerRanking((i + 1).ToString(), false);
-        //            //else
-        //            //SetPlayerRanking(root.Count+"+", false);
-
-
-
-        //        var item_go = Instantiate(m_ItemPrefab);
-        //        item_go.transform.SetParent(m_transform);
-        //        item_go.transform.localScale = Vector2.one;
-        //        item_go.GetComponent<RankitemSetup>().Username.text = root[i].name;
-        //        item_go.GetComponent<RankitemSetup>().winAmount.text = root[i].amount.ToString();
-        //        item_go.GetComponent<RankitemSetup>().UserRank.text = (i + 1).ToString();
-        //        //StartCoroutine(SetImageFromURL(root[i].profile_pic, item_go.GetComponent<RankitemSetup>().dp));
-        //       // Loadingbg.SetActive(false);
-        //    }
-
-        //}
-        //public IEnumerator SetImageFromURL(string pictureURL, Image imageView)
-        //{
-        //    if (pictureURL.Length > 0)
-        //    {
-        //        WWW www = new WWW(pictureURL);
-        //        yield return www;
-        //        Texture2D ui_texture = www.texture;
-        //        if (ui_texture != null) {
-        //            Sprite sprite = Sprite.Create(www.texture, new Rect(0, 0, www.texture.width, www.texture.height), new Vector2(0, 0));
-        //            if (sprite != null)
-        //            {
-        //                Debug.Log("ProfilePicUrlSet");
-        //                imageView.overrideSprite = sprite;
-
-        //                StartCoroutine(closeLoading());
-        //            }
-        //        }
-        //    }
-        //    // hide loader
-
-        //}
-
-        //IEnumerator closeLoading()
-        //{
-        //    yield return new WaitForSeconds(2f);
-        //    Loadingbg.SetActive(false);
-        //}
-
 
         void SetPlayerRanking(string rank, bool isWeekly)
         {
@@ -430,6 +273,13 @@ namespace Titli.Gameplay
             }
             isTimerSet = false;
             
+        }
+        public void OnExitTopWinnerPanel()
+        {
+            foreach (Transform child in m_ContentContainerDaily) { Destroy(child.gameObject); }
+            dailyUsers.Clear();
+            foreach (Transform child in m_ContentContainer) { Destroy(child.gameObject); }
+            weeklyUsers.Clear();
         }
     }
 

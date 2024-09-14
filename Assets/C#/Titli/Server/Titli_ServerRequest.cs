@@ -50,9 +50,9 @@ namespace Titli.ServerStuff
                 playerId = PlayerPrefs.GetString("userId"),//"nauyaniika@nmsgames.com",  
                 userId = PlayerPrefs.GetString("userId"),
                 balance = "1000",
-                gameId = "4"
+                gameId = PlayerPrefs.GetString("GameId")
             };
-            Debug.Log("On RegisterPlayer "+ player.playerId + " , "+ player.userId + " , "+ player.balance);
+            Debug.Log("On RegisterPlayer gameId " + player.gameId + " , "+ player.userId + " , "+ player.balance);
 
             socket.Emit("RegisterPlayer", new JSONObject( Newtonsoft.Json.JsonConvert.SerializeObject(player)) );
             //socket.Emit(Events.OnCurrentTimer);

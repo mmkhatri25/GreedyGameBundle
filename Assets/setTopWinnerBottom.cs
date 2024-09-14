@@ -19,11 +19,24 @@ public class setTopWinnerBottom : MonoBehaviour
 
     public void SetwinnerData(SocketIOEvent e)
     {
+
         Root winData = JsonUtility.FromJson<Root>(e.data.ToString());
         WinAmountWeekly.text = winData.weekly.amount.ToString();
         WinAmountDaily.text = winData.daily.amount.ToString();
-        userNameWeekly.text = winData.weekly.name.ToString();
-        userNameDaily.text = winData.daily.name.ToString();
+
+        if (string.IsNullOrEmpty( winData.weekly.name))
+        {
+            userNameWeekly.text = "";
+        }
+        else
+            userNameWeekly.text = winData.weekly.name.ToString();
+        if (string.IsNullOrEmpty(winData.daily.name))
+        {
+            userNameDaily.text = "Winner";
+        }
+        else
+            userNameDaily.text = winData.daily.name.ToString();
+
         StartCoroutine(SetImageFromURL(winData.weekly.profile_pic, WeeklyDp));
         StartCoroutine(SetImageFromURL(winData.daily.profile_pic, DailyDp));
 

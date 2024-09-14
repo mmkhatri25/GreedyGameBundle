@@ -47,9 +47,11 @@ namespace Titli.ServerStuff
             socket.On(Events.OnTimeUp, OnTimerUp);
             socket.On(Events.OnCurrentTimer, OnCurrentTimer);
             socket.On(Events.OnWinNo, OnWinNo);
+            socket.On(Events.OnWinNoJungle, OnWinNoJungle);
             socket.On(Events.OnHistoryRecord, OnHistoryRecord);
             socket.On(Events.userWinAmount, OnuserWinAmount);
             socket.On(Events.topWinner, OntopWinner);
+            socket.On(Events.topWinnerJungle, OntopWinnerJungle);
             socket.On(Events.winnerList, OnwinnerList);
         }
 
@@ -85,10 +87,12 @@ namespace Titli.ServerStuff
             socket.Off(Events.OnTimeUp, OnTimerUp);
             socket.Off(Events.OnCurrentTimer, OnCurrentTimer);
             socket.Off(Events.OnWinNo, OnWinNo);
+            socket.Off(Events.OnWinNoJungle, OnWinNoJungle);
             socket.Off(Events.OnHistoryRecord, OnHistoryRecord);
             socket.Off(Events.OnBetsPlaced, OnBetsPlaced);
             socket.Off(Events.userWinAmount, OnuserWinAmount);
             socket.Off(Events.topWinner, OntopWinner);
+            socket.Off(Events.topWinnerJungle, OntopWinnerJungle);
             socket.Off(Events.winnerList, OnwinnerList);
             print("2222 Titli_ServerResponse Removed Listners..." + socket.MyScoketDisconnected);
 
@@ -103,6 +107,11 @@ namespace Titli.ServerStuff
         void OnWinNo(SocketIOEvent e)
         {
             Debug.Log("OnWinNo: " + e.data);
+            Titli_RoundWinningHandler.Instance.OnWin(e.data);
+        }
+        void OnWinNoJungle(SocketIOEvent e)
+        {
+            Debug.Log("OnWinNoJungle: " + e.data);
             Titli_RoundWinningHandler.Instance.OnWin(e.data);
         }
 
@@ -132,12 +141,29 @@ namespace Titli.ServerStuff
 
         void OntopWinner(SocketIOEvent e)
         {
-            setTopWinnerBottom.inst.SetwinnerData(e);
+            print("Greedy - OntopWinner");
+            if (PlayerPrefs.GetString("GameId")  == "4")
+            {
+                setTopWinnerBottom.inst.SetwinnerData(e);
+
+            }
+        }
+        void OntopWinnerJungle (SocketIOEvent e)
+        {
+            print("Greedy Jungle - OntopWinner");
+            if (PlayerPrefs.GetString("GameId") == "5")
+            {
+                setTopWinnerBottom.inst.SetwinnerData(e);
+
+            }
+            //setTopWinnerBottom.inst.SetwinnerData(e);
         }
 
         void OnwinnerList(SocketIOEvent e)
         {
             // Code for handling winner list
+            print("Greedy Jungle - OnwinnerList");
+
         }
 
         void OnTimerStart(SocketIOEvent e)

@@ -224,16 +224,6 @@ namespace Titli.UI
             StartCoroutine(CheckInternet());
         }
         bool isPaused;
-        // public void OnApplicationFocus(bool hasFocus)
-        // {
-        //     isPaused = !hasFocus;
-        //     if (Application.isEditor) return;
-        //     if (isPaused && Application.platform == RuntimePlatform.Android) 
-        //     {
-        //         ExitLobby();
-        //     }
-        // }
-        // DateTime time1, time2;
         public GameObject pausePanel;
         public string GreedyGameScene;
         public bool lessthanFiveSec;
@@ -438,15 +428,7 @@ namespace Titli.UI
         }
         public void SendBets()
         {
-            //for (int i = 0; i < betsholder.Length; i++)
-            //{
-            //    Debug.Log(" bet holder - " +i +" - "+ betsholder[i]);
-
-            //}
-          
             Titli_RoundWinningHandler.Instance.total_bet = betsholder.Sum();
-            //Debug.Log("1 SendBets() - " + betsholder.Sum() + Titli_RoundWinningHandler.Instance.total_bet);
-
             bet_data data = new bet_data()
             {
                 userId = PlayerPrefs.GetString("userId"),
@@ -460,50 +442,20 @@ namespace Titli.UI
                 chicken_total_bets = ChickenBets,
 
                 storeId = PlayerPrefs.GetString("storeId"),
-                gameID = PlayerPrefs.GetString("gameId")
+                gameID = PlayerPrefs.GetString("GameId")
             };
-            //Debug.Log($"userId: {data.userId}");
-            //Debug.Log($"carrot_total_bets: {data.carrot_total_bets}");
-            //Debug.Log($"papaya_total_bets: {data.papaya_total_bets}");
-            //Debug.Log($"cabbage_total_bets: {data.cabbage_total_bets}");
-            //Debug.Log($"tomato_total_bets: {data.tomato_total_bets}");
-            //Debug.Log($"roll_total_bets: {data.roll_total_bets}");
-            //Debug.Log($"hotdog_total_bets: {data.hotdog_total_bets}");
-            //Debug.Log($"pizza_total_bets: {data.pizza_total_bets}");
-            //Debug.Log($"chicken_total_bets: {data.chicken_total_bets}");
-            //Debug.Log($"storeId: {data.storeId}");
-            //Debug.Log($"gameID: {data.gameID}");
+      
             if (Titli_RoundWinningHandler.Instance.total_bet > 0)
             {
-                //Debug.Log("2 SendBets() - " + betsholder.Sum());
-
                 isBetSentServer = true;
                 PlayerPrefs.SetInt("isBetSentServer", isBetSentServer ? 1 : 0);
                 PlayerPrefs.SetInt("TotalBetServer", (int)Titli_RoundWinningHandler.Instance.total_bet);
-
-
-                //PlayerPrefs.SetInt("CarrotBets", data.carrot_total_bets);
-                //PlayerPrefs.SetInt("PapayaBets", data.papaya_total_bets);
-                //PlayerPrefs.SetInt("CabbageBets", data.cabbage_total_bets);
-                //PlayerPrefs.SetInt("TomatoBets", data.tomato_total_bets);
-                //PlayerPrefs.SetInt("RollBets", data.roll_total_bets);
-                //PlayerPrefs.SetInt("HotDogBets", data.hotdog_total_bets);
-                //PlayerPrefs.SetInt("PizzaBets", data.pizza_total_bets);
-                //PlayerPrefs.SetInt("ChickenBets", data.chicken_total_bets);
-                //PlayerPrefs.Save(); // Ensure all data is saved
             }
             else
             {
-                //Debug.Log("3 SendBets() - " + betsholder.Sum());
-
                 isBetSentServer = false;
                 PlayerPrefs.SetInt("isBetSentServer", isBetSentServer ? 1 : 0);
             }
-            //======
-            //Debug.Log("final data - " + data.ToString());
-
-            //print("isBetSentServer - " + PlayerPrefs.GetInt("isBetSentServer") + " Round Numberr - "+ PlayerPrefs.GetInt("RoundNumber")+" ,total bet - " + Titli_RoundWinningHandler.Instance.total_bet );
-            //print("Carrot:" + data.carrot_total_bets + "\n" + "Papaya:" + data.papaya_total_bets + "\n" + "Cabbage:" + data.cabbage_total_bets + "\n" + "Chicken:" + data.chicken_total_bets + "\n" +"Mutton:" + data.pizza_total_bets + "\n" +"Shrimp:" + data.hotdog_total_bets + "\n" +"Fish:" + data.roll_total_bets + "\n" +"Tomato:" + data.tomato_total_bets + "\n" + data.gameID +  "\n" + data.storeId );
             Titli_ServerRequest.instance.socket.Emit(Events.OnBetsPlaced, new JSONObject(JsonConvert.SerializeObject(data)));
             isBetPlaced = false;
 
@@ -511,10 +463,7 @@ namespace Titli.UI
 
         public void SendBetsOnReconnect()
         {
-            //Titli_RoundWinningHandler.Instance.total_bet = betsholder.Sum();
-            //Debug.Log("1 SendBets() - " + betsholder.Sum() + Titli_RoundWinningHandler.Instance.total_bet);
-            Debug.Log("SendBetsOnReconnect()");
-
+          
             bet_data data = new bet_data()
             {
                 userId = PlayerPrefs.GetString("userId"),
@@ -526,22 +475,11 @@ namespace Titli.UI
                 hotdog_total_bets = PlayerPrefs.GetInt("HotDogBets"),//HotDogBets,
                 pizza_total_bets = PlayerPrefs.GetInt("PizzaBets"), //PizzaBets,
                 chicken_total_bets = PlayerPrefs.GetInt("ChickenBets"),// ChickenBets,
-
-               
-
-            storeId = PlayerPrefs.GetString("storeId"),
-                gameID = PlayerPrefs.GetString("gameId")
+                storeId = PlayerPrefs.GetString("storeId"),
+                gameID = PlayerPrefs.GetString("GameId")
             };
 
-            Debug.Log($"userId: {data.userId}");
-            Debug.Log($"carrot_total_bets: {data.carrot_total_bets}");
-            Debug.Log($"papaya_total_bets: {data.papaya_total_bets}");
-            Debug.Log($"cabbage_total_bets: {data.cabbage_total_bets}");
-            Debug.Log($"tomato_total_bets: {data.tomato_total_bets}");
-            Debug.Log($"roll_total_bets: {data.roll_total_bets}");
-            Debug.Log($"hotdog_total_bets: {data.hotdog_total_bets}");
-            Debug.Log($"pizza_total_bets: {data.pizza_total_bets}");
-            Debug.Log($"chicken_total_bets: {data.chicken_total_bets}");
+            
             Debug.Log($"storeId: {data.storeId}");
             Debug.Log($"gameID: {data.gameID}");
 
@@ -551,21 +489,15 @@ namespace Titli.UI
 
             if (totalBets > 0)
             {
-                Debug.Log("1 SendBets() - " + totalBets);
-
                 isBetSentServer = true;
                 PlayerPrefs.SetInt("isBetSentServer", isBetSentServer ? 1 : 0);
                 PlayerPrefs.SetInt("TotalBetServer", (int)Titli_RoundWinningHandler.Instance.total_bet);
             }
             else
             {
-                Debug.Log("2 SendBets() - " + totalBets);
                 isBetSentServer = false;
                 PlayerPrefs.SetInt("isBetSentServer", isBetSentServer ? 1 : 0);
             }
-            //======
-            //print("isBetSentServer - " + PlayerPrefs.GetInt("isBetSentServer") + " Round Numberr - " + PlayerPrefs.GetInt("RoundNumber") + " ,total bet - " + Titli_RoundWinningHandler.Instance.total_bet);
-            print("Carrot:" + data.carrot_total_bets + "\n" + "Papaya:" + data.papaya_total_bets + "\n" + "Cabbage:" + data.cabbage_total_bets + "\n" + "Chicken:" + data.chicken_total_bets + "\n" + "Mutton:" + data.pizza_total_bets + "\n" + "Shrimp:" + data.hotdog_total_bets + "\n" + "Fish:" + data.roll_total_bets + "\n" + "Tomato:" + data.tomato_total_bets + "\n" + data.gameID + "\n" + data.storeId);
             Titli_ServerRequest.instance.socket.Emit(Events.OnBetsPlaced, new JSONObject(JsonConvert.SerializeObject(data)));
             isBetPlaced = false;
             PlayerPrefs.SetInt("isReconnect", 0);
@@ -625,8 +557,8 @@ namespace Titli.UI
             Debug.Log("Balance before Win Balance"+balance_win);
             Win_Amount_text.text = "+ "+ win_amount.ToString();
             Win_Text_base.SetActive(true);
-            balance = balance_win;
-            // balance = balance_win;
+            //balance = balance_win;
+             balance = balance+ win_amount;
             Debug.Log("Balance After Add"+balance);
             balanceTxt.text = balance.ToString();
             yield return new WaitForSeconds(2f);
@@ -721,7 +653,6 @@ namespace Titli.UI
         public GameObject content, target_panel;
         public IEnumerator buyCoinAPi()
         {
-            // StartCoroutine(WebRequestHandler.instance.buyCoinAPi());
             WWWForm data = new WWWForm();
             data.AddField("page", "1");
             using ( UnityWebRequest www = UnityWebRequest.Put("https://api-uat.yaravoice.com/api/v1/coin-seller-list", data.ToString()) )
@@ -744,17 +675,12 @@ namespace Titli.UI
                     Debug.Log("Coin Buy " +www.downloadHandler.text );
                     coinResponseClass result = JsonConvert.DeserializeObject<coinResponseClass>(www.downloadHandler.text, Desersettings);
 
-                    for (int i = 0; i <result.result.data.Length; i++)  //foreach (var item in res.data)
+                    for (int i = 0; i <result.result.data.Length; i++) 
                     {
                         GameObject clone = Instantiate(content, target_panel.transform);
                         clone.GetComponent<CoinSeller>().setDetails(result.result.data[i].userId.name, result.result.data[i].userId.mobile);
                         Debug.Log("HomeScript"+result.result.data[i].userId.mobile);
                         clone.GetComponent<CoinSeller>().LoadProfileImage(result.result.data[i].userId.profile_pic);
-                        // clone.transform.GetChild(1).GetComponent<TMP_Text>().text = result.result.data[i].userId.name;
-
-                        // clone.transform.name = res.data.result[i].userData[i].name;
-                        // clone.transform.GetChild(1).GetComponent<Text>().text = res.data.result[i].userData[i].name;
-                        // clone.transform.GetChild(2).transform.GetChild(1).GetComponent<Text>().text = res.data.result[i].total.ToString();
                         clone.SetActive(true);
                         content_clones.Add(clone);
                     }
@@ -822,30 +748,11 @@ namespace Titli.UI
                     {
                         Debug.Log("Data Recieved successfully.... " + www.downloadHandler.text);
                         PlayerPrefs.SetFloat("currentBalance", result.result.currentBalance);
-                        // PlayerPrefs.SetString("gameId",result.result.gameId);
-                        // PlayerPrefs.SetString("storeId",result.result.storeId);
-                        // PlayerPrefs.SetString("name",result.result.name);
                         balance = result.result.currentBalance;
-                        // SceneManager.LoadScene(1);
-
                     }
                     else
                     {   
                         Debug.Log("Error Retriving Data");
-                        // if (result.status == 400)
-                        //     Debug.Log("Status Code"+result.status);
-
-                        // try
-                        // {
-                        //     // Application.Quit();
-                        //     AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
-                        //     activity.Call("finish");
-                        // }
-                        // catch( UnityException ex )
-                        // {
-                        //     Debug.Log("Exception:" +ex.ToString() + ex.HelpLink + ex.HResult);
-                        // }
-                        // Application.Quit();
                     }   
                 }
             }

@@ -346,7 +346,7 @@
             title.resizeTextMaxSize     = 40;
             prototypeItem.title = title;
         }
-        protected virtual void clear() {
+        public virtual void clear() {
 
             while( this.transform.childCount>0 ) {
                 DestroyImmediate( this.transform.GetChild( 0 ).gameObject );

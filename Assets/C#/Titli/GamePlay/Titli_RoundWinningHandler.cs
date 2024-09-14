@@ -146,6 +146,8 @@ namespace Titli.Gameplay
         public Root player;
         public void OnWin(object o)
         {
+            print("OnWin  ======== " );
+
             PlayerPrefs.SetInt("isBetPlaced", 0);
             PlayerPrefs.SetInt("isBetSentServer", 0);
 
@@ -161,9 +163,7 @@ namespace Titli.Gameplay
             PlayerPrefs.Save(); // Ensure all data is saved
 
             Titli_Timer.Instance.is_a_FirstRound = false;
-            // print("here on win - "+ o);
-            //DiceWinNos player = (DiceWinNos)JsonUtility.FromJson(o.ToString(), typeof(DiceWinNos));
-             player = (Root)JsonUtility.FromJson(o.ToString(), typeof(Root));
+            player = (Root)JsonUtility.FromJson(o.ToString(), typeof(Root));
 
             print("Before win round  - " + PlayerPrefs.GetInt("RoundNumber"));
 
@@ -351,7 +351,7 @@ namespace Titli.Gameplay
                         break;
                 }
             }
-            StartCoroutine (  mySpinComplete(player.previousWin_single));
+            StartCoroutine (mySpinComplete(player.previousWin_single));
             winnerNames.Clear();
             DpUrl.Clear();
             Winamount.Clear();
@@ -431,7 +431,7 @@ namespace Titli.Gameplay
         
         IEnumerator ShowWinningRing( GameObject ring , Spots winnerSpot, List<int> previousWinsList )
         {
-                //print("ShowWinningRing - "+winnerSpot);
+            print("111 ShowWinningRing - "+winnerSpot + ", win_amount - "+ win_amount);
         
              Titli_Timer.Instance.waitForBetScreen.SetActive(false);
              yield return StartCoroutine(Titli_CardController.Instance.CardsBlink(win_no));
@@ -444,6 +444,8 @@ namespace Titli.Gameplay
                 Total_Bet_text.text = total_bet.ToString();
                 win_amount_desc.SetActive(true);
                 Win_Panel.SetActive(true);
+                print("222 ShowWinningRing - " + winnerSpot + ", win_amount - " + win_amount);
+
             }
             else
             {
@@ -452,9 +454,10 @@ namespace Titli.Gameplay
                 win_amount_desc.SetActive(false);
                 No_Win_Description.SetActive(true);
                 Win_Panel.SetActive(true);
-           
+            print("333 ShowWinningRing - "+winnerSpot + ", win_amount - "+ win_amount);
+
             }
- 
+
 
 
             ring.SetActive(true); 

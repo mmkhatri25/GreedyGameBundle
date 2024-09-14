@@ -44,7 +44,7 @@ namespace Titli.Gameplay
         public IEnumerator CardsBlink(int winno)
         {
             int round = 0;
-            Debug.Log($"needle: {needle}, winno: {winno}");
+            //Debug.Log($"needle: {needle}, winno: {winno}");
             if (needle != null)
             {
                 if (winno != 9 && winno != 8)
@@ -95,7 +95,7 @@ namespace Titli.Gameplay
         //New spin after first
         public void SpinToItem(GameObject targetItem)
         {
-            Debug.Log("SpinToItem = "+ targetItem.name);
+            //Debug.Log("SpinToItem = "+ targetItem.name);
 
             
             // Find the index of the target item in the array
@@ -103,7 +103,7 @@ namespace Titli.Gameplay
 
             if (itemIndex == -1)
             {
-                Debug.LogError("Item not found on the wheel!");
+                //Debug.LogError("Item not found on the wheel!");
                 return;
             }
 
@@ -113,7 +113,7 @@ namespace Titli.Gameplay
             targetAngle = targetAngle % 360;
             float currentAngle = wheel.rotation.eulerAngles.z;
             float rotationAngle = Mathf.DeltaAngle(currentAngle, targetAngle);
-            Debug.Log("SpinToItem rotationAngle = " + rotationAngle);
+            //Debug.Log("SpinToItem rotationAngle = " + rotationAngle);
 
             StartCoroutine(SpinWheel(rotationAngle));
         }
@@ -137,7 +137,7 @@ namespace Titli.Gameplay
                 wheel.rotation = Quaternion.Euler(0, 0, newAngle);
 
                 // Log the new angle for debugging
-                Debug.Log($"New Angle: {newAngle}");
+                //Debug.Log($"New Angle: {newAngle}");
 
                 yield return null;
             }
@@ -149,7 +149,7 @@ namespace Titli.Gameplay
             wheel.rotation = Quaternion.Euler(0, 0, finalAngle);
 
 
-            Debug.Log($"SpinWheel Final Angle: {wheel.rotation.eulerAngles.z}");
+            //Debug.Log($"SpinWheel Final Angle: {wheel.rotation.eulerAngles.z}");
         }
 
     }

@@ -76,6 +76,7 @@ namespace Titli.Utility
         
         internal static string OnBetsPlaced = "OnBetsPlaced";
         internal static string OnWinNo = "OnWinNo";
+        internal static string OnWinNoJungle = "OnWinNoJungle";
         internal static string OnBotsData = "OnBotsData";
         internal static string OnPlayerWin = "OnPlayerWin";
         internal static string onleaveRoom = "onleaveRoom";
@@ -83,6 +84,7 @@ namespace Titli.Utility
         internal static string userDailyWin = "userDailyWin";
         internal static string userWinAmount = "userWinAmount";// listner
         internal static string topWinner = "topWinner";// top winner on home page
+        internal static string topWinnerJungle = "topWinnerJungle";// top winner on home page
         internal static string winnerList = "winnerList";// winner list daily weekly
        
         
