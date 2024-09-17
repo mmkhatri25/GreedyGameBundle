@@ -7,6 +7,7 @@ using Titli.ServerStuff;
 using System;
 using UnityEngine.Networking;
 using Mosframe;
+//using static UnityEditor.Progress;
 //namespace Mosframe;
 namespace Titli.Gameplay
 {
@@ -49,6 +50,10 @@ namespace Titli.Gameplay
 
         IEnumerator showTopwinners()
         {
+            scrollRect.verticalScrollbar.value= 0f;
+            scrollRectDaily.verticalScrollbar.value = 0f;
+
+            
             yield return new WaitForSeconds(2f);
             Playernewdata player = new Playernewdata() { userId = PlayerPrefs.GetString("userId") };
             Titli_ServerRequest.instance.socket.Emit(Events.winnerList, new JSONObject(Newtonsoft.Json.JsonConvert.SerializeObject(player)), HandleAction);
@@ -76,13 +81,7 @@ namespace Titli.Gameplay
             // show loader
             Loadingbg.SetActive(true);
             print("ShowWeeklyList");
-
-            //Playernewdata player = new Playernewdata() { userId = PlayerPrefs.GetString("userId") };
-            //Titli_ServerRequest.instance.socket.Emit(Events.winnerList, new JSONObject(Newtonsoft.Json.JsonConvert.SerializeObject(player)), HandleAction);
-            //Debug.Log("ShowWeeklyList -- " + Events.winnerList);
             StartCoroutine(showTopwinners());
-            //PopulateRankItems(m_ContentContainer, winData.weekly);
-            //DailyPopulateRankItems(m_ContentContainerDaily, winData.daily);
         }
         public void ShowDailyList()
         {
@@ -91,12 +90,7 @@ namespace Titli.Gameplay
             // show loader
             print("ShowDailyList");
             Loadingbg.SetActive(true);
-
-            //Playernewdata player = new Playernewdata() { userId = PlayerPrefs.GetString("userId") };
-            //Titli_ServerRequest.instance.socket.Emit(Events.winnerList, new JSONObject(Newtonsoft.Json.JsonConvert.SerializeObject(player)), HandleAction);
-
             StartCoroutine(showTopwinners());
-            //DailyPopulateRankItems(m_ContentContainerDaily, winData.daily);
         }
 
 
@@ -105,6 +99,9 @@ namespace Titli.Gameplay
 
         void PopulateRankItems(Transform m_transform, List<WeeklyTopUsers> root)
         {
+            //WeeklyDynamicView.totalItemCount = 0;
+            //scrollRect.verticalNormalizedPosition = -10f;
+
             isWeekly = true;
 
             Loadingbg.SetActive(true);
@@ -115,6 +112,7 @@ namespace Titli.Gameplay
             print("111weekly PopulateRankItems === "+ WeeklyDynamicView.totalItemCount);
 
             scrollRect.verticalNormalizedPosition = 1f;
+      
 
             if (root.Count <= 0)
             {
@@ -136,11 +134,20 @@ namespace Titli.Gameplay
                     {
                         SetPlayerRanking((i + 1).ToString(), true);
                         //print("exists... " + root[i].userId);
+                        WeeklyContainer.position = new Vector3(WeeklyContainer.position.x, 1000f, WeeklyContainer.position.z);
+                        WeeklyContainer.position = new Vector3(WeeklyContainer.position.x, 1000f, WeeklyContainer.position.z);
+
                     }
 
                     Loadingbg.SetActive(false);
                 }
             }
+            WeeklyContainer.position = new Vector3(WeeklyContainer.position.x, 1000f, WeeklyContainer.position.z);
+            WeeklyContainer.position = new Vector3(WeeklyContainer.position.x, 1000f, WeeklyContainer.position.z);
+            //DailyContainer.position = new Vector3(DailyContainer.position.x, 1000f, DailyContainer.position.z);
+
+
+
         }
         IEnumerator waitToCloseLoading()
         {
@@ -153,6 +160,9 @@ namespace Titli.Gameplay
         public bool isWeekly;
         void DailyPopulateRankItems(Transform m_transform, List<DailyTopusers> root)
         {
+            //scrollRectDaily.verticalNormalizedPosition = -10f;
+
+
             isWeekly = false;
             Loadingbg.SetActive(true);
 
@@ -162,7 +172,7 @@ namespace Titli.Gameplay
             DailyDynamicView.totalItemCount = root.Count;
             print("daily PopulateRankItems");
             scrollRectDaily.verticalNormalizedPosition = 1f;
-      
+     
 
             if (root.Count <= 0)
             {
@@ -178,11 +188,21 @@ namespace Titli.Gameplay
                     if (PlayerPrefs.GetString("userId") == root[i].userId)
                         SetPlayerRanking((i + 1).ToString(), false);
 
-                   
+                    DailyContainer.position = new Vector3(DailyContainer.position.x, 1000f, DailyContainer.position.z);
+                    DailyContainer.position = new Vector3(DailyContainer.position.x, 1000f, DailyContainer.position.z);
+
+
                 }
                 Loadingbg.SetActive(false);
 
             }
+
+            //WeeklyContainer.localPosition = new Vector3(WeeklyContainer.localPosition.x, 1000f, WeeklyContainer.localPosition.z);
+            DailyContainer.position = new Vector3(DailyContainer.position.x, 1000f, DailyContainer.position.z);
+            DailyContainer.position = new Vector3(DailyContainer.position.x, 1000f, DailyContainer.position.z);
+            //WeeklyContainer.position = new Vector3(WeeklyContainer.position.x, 1000f, WeeklyContainer.position.z);
+
+
         }
         public void SetImageFromURL(string pictureURL, Image imageView, Action onComplete = null)
         {

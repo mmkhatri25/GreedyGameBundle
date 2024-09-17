@@ -6193,6 +6193,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ContentContainer: {fileID: 888504892}
   m_ContentContainerDaily: {fileID: 1165423154}
+  WeeklyContainer: {fileID: 7427192916834247981}
+  DailyContainer: {fileID: 2068351479}
   WeeklyDynamicView: {fileID: 7427192916231384359}
   DailyDynamicView: {fileID: 1855536052}
   m_ItemPrefab: {fileID: 3040683596193881140, guid: e2c0990554ed64ef7be844277af80aaa, type: 3}
