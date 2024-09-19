@@ -160,9 +160,6 @@ namespace Titli.Gameplay
         public bool isWeekly;
         void DailyPopulateRankItems(Transform m_transform, List<DailyTopusers> root)
         {
-            //scrollRectDaily.verticalNormalizedPosition = -10f;
-
-
             isWeekly = false;
             Loadingbg.SetActive(true);
 

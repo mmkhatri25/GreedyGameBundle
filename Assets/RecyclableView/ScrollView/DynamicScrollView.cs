@@ -205,7 +205,16 @@
 			    itemObj.SetActive(true);
 			
 			    var item = itemObj.GetComponent<IDynamicScrollViewItem>();
-                if( item != null ) item.onUpdateItem( index );
+                if( item != null )
+                    try
+                    {
+                    item.onUpdateItem( index );
+
+                    }
+                    catch (System.Exception ex)
+                    {
+                        print("index out of....");
+                    }
 		    }
 	    }
 
