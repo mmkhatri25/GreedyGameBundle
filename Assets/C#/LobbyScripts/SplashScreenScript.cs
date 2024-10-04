@@ -57,7 +57,7 @@ namespace SocketIO
             StartCoroutine(GetDataApi(url, userIdVar));
             PlayerPrefs.SetString("userId", userIdVar);
             PlayerPrefs.SetString("GameId", GameId);
-            Debug.Log("===== game id - " + GameId + "player prefs game id " + PlayerPrefs.GetString("GameId"));
+            //Debug.Log("===== game id - " + GameId + "player prefs game id " + PlayerPrefs.GetString("GameId"));
 
 #else
             getIntentData ();
@@ -168,17 +168,17 @@ namespace SocketIO
                 else
                 {
                     BalanceREsponse result = Newtonsoft.Json.JsonConvert.DeserializeObject<BalanceREsponse>(www.downloadHandler.text);
-                    Debug.Log("result   " + result.result.name);
+                    //Debug.Log("result   " + result.result.name);
                     if (result.status == 200)
                     {
                         //Debug.Log("Data Recieved successfully.... " + www.downloadHandler.text);
                         PlayerPrefs.SetFloat("currentBalance", result.result.currentBalance);
                         PlayerPrefs.SetString("gameId", result.result.gameId);
-                        Debug.Log("==== result on   GetDataApi gameid - " + result.result.gameId);
+                        //Debug.Log("==== result on   GetDataApi gameid - " + result.result.gameId);
                         PlayerPrefs.SetString("storeId", result.result.storeId);
                         PlayerPrefs.SetString("name", result.result.name);
                         //SceneManager.LoadScene(1);
-                        Debug.Log("PlayerPrefs gameid - " + PlayerPrefs.GetString("GameId"));
+                        //Debug.Log("PlayerPrefs gameid - " + PlayerPrefs.GetString("GameId"));
 
                         if (PlayerPrefs.GetString("GameId") == "4")
                             SceneManager.LoadScene(1);

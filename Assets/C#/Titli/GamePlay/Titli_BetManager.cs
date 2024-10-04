@@ -17,7 +17,7 @@ namespace Titli.Gameplay
             }
             private void Start()
             {
-                Debug.Log("Here Bet manager is ready...");
+                //Debug.Log("Here Bet manager is ready...");
                 betHolder.Add(Spots.carrot, 0);
                 betHolder.Add(Spots.papaya, 0);
                 betHolder.Add(Spots.Cabbage, 0);
@@ -45,14 +45,14 @@ namespace Titli.Gameplay
             }
             public void AddBets(Spots betType, Chip chipType)
             {
-                print("AddBets - place type - " + betType.ToString() + " , chipType "+ chipType);
+                //print("AddBets - place type - " + betType.ToString() + " , chipType "+ chipType);
                 betHolder[betType] = GetBetAmount(chipType);
                  Titli_UiHandler.Instance.AddBets(betType);
                 
             }
             private int GetBetAmount(Chip chipType)
             {
-                print("In GetBetAmount chipType "+ chipType);
+                //print("In GetBetAmount chipType "+ chipType);
 
                 int amount = 0;
                 switch (chipType)
@@ -75,7 +75,7 @@ namespace Titli.Gameplay
                     default:
                         break;
                 }
-                print("In GetBetAmount chipType amount = " + amount);
+                //print("In GetBetAmount chipType amount = " + amount);
 
                  return amount;
             }

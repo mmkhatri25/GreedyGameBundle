@@ -62,7 +62,7 @@ namespace Titli.Gameplay
         void HandleAction(JSONObject obj)
         {
             string mystr = obj.ToString().Substring(1, obj.ToString().Length - 2);
-            print("winData HandleAction  - " + mystr);
+            //print("winData HandleAction  - " + mystr);
             
             JSONObject abc = obj;
             winData = JsonUtility.FromJson<RootDailyUsers>(mystr);
@@ -167,7 +167,7 @@ namespace Titli.Gameplay
             DailyDynamicView.gameObject.SetActive(true);
             dailyUsers = root;
             DailyDynamicView.totalItemCount = root.Count;
-            print("daily PopulateRankItems");
+            //print("daily PopulateRankItems");
             scrollRectDaily.verticalNormalizedPosition = 1f;
      
 

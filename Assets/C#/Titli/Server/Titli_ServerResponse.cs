@@ -94,7 +94,7 @@ namespace Titli.ServerStuff
             socket.Off(Events.topWinner, OntopWinner);
             socket.Off(Events.topWinnerJungle, OntopWinnerJungle);
             socket.Off(Events.winnerList, OnwinnerList);
-            print("2222 Titli_ServerResponse Removed Listners..." + socket.MyScoketDisconnected);
+            //print("2222 Titli_ServerResponse Removed Listners..." + socket.MyScoketDisconnected);
 
         }
 
@@ -127,9 +127,9 @@ namespace Titli.ServerStuff
 
         void OnuserWinAmount(SocketIOEvent e)
         {
-            Debug.Log("OnuserWinAmount - " + e.data);
+            //Debug.Log("OnuserWinAmount - " + e.data);
             RootWin winData = JsonUtility.FromJson<RootWin>(e.data.ToString());
-            Debug.Log("OnuserWinAmount - " + winData.amount);
+            //Debug.Log("OnuserWinAmount - " + winData.amount);
             Titli_RoundWinningHandler.Instance.TodayWinText.text = winData.amount + "";
         }
 
@@ -141,7 +141,7 @@ namespace Titli.ServerStuff
 
         void OntopWinner(SocketIOEvent e)
         {
-            print("Greedy - OntopWinner");
+            //print("Greedy - OntopWinner");
             if (PlayerPrefs.GetString("GameId")  == "4")
             {
                 setTopWinnerBottom.inst.SetwinnerData(e);
@@ -150,7 +150,7 @@ namespace Titli.ServerStuff
         }
         void OntopWinnerJungle (SocketIOEvent e)
         {
-            print("Greedy Jungle - OntopWinner");
+            //print("Greedy Jungle - OntopWinner");
             if (PlayerPrefs.GetString("GameId") == "5")
             {
                 setTopWinnerBottom.inst.SetwinnerData(e);
@@ -162,7 +162,7 @@ namespace Titli.ServerStuff
         void OnwinnerList(SocketIOEvent e)
         {
             // Code for handling winner list
-            print("Greedy Jungle - OnwinnerList");
+            //print("Greedy Jungle - OnwinnerList");
 
         }
 

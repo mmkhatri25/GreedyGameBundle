@@ -114,7 +114,7 @@ namespace SocketIO
             //    url = UAT_url;
             //else
             //    url = Production_url;
-            Debug.Log("==== socketIOclass");
+            //Debug.Log("==== socketIOclass");
             #if (UNITY_EDITOR)
                  if (isUAT)
                      url = UAT_url;
@@ -166,7 +166,7 @@ namespace SocketIO
 
             pingThread = new Thread(RunPingThread);
             pingThread.Start(ws);
-            Debug.Log("in Connect() now ");
+            //Debug.Log("in Connect() now ");
         }
 
         public void Update()
@@ -245,7 +245,7 @@ namespace SocketIO
         {
             if (!handlers.ContainsKey(ev))
             {
-                Debug.Log("[SocketIO] No callbacks registered for event: " + ev);
+                //Debug.Log("[SocketIO] No callbacks registered for event: " + ev);
                 return;
             }
 
@@ -312,7 +312,7 @@ namespace SocketIO
                         //    break;
                         //}
 
-                        Debug.Log("Socket disconnected. Attempting to reconnect...");
+                        //Debug.Log("Socket disconnected. Attempting to reconnect...");
                         webSocket.Connect();
                     }
                     Thread.Sleep(reconnectDelay * 1000); // Convert seconds to milliseconds
@@ -323,7 +323,7 @@ namespace SocketIO
             {
                 webSocket.Close();
                 Thread.ResetAbort();
-                Debug.Log("Thread Abort Exception Occurred and Caught: " + e.Message);
+                //Debug.Log("Thread Abort Exception Occurred and Caught: " + e.Message);
             }
         }
 
@@ -469,7 +469,7 @@ namespace SocketIO
         private void OnOpen(object sender, EventArgs e)
         {
             EmitEvent("open");
-            Debug.Log("Socket connected.");
+            //Debug.Log("Socket connected.");
             wsConnected = true;
             MyScoketDisconnected = true;
         }
@@ -505,14 +505,14 @@ namespace SocketIO
         private void OnClose(object sender, CloseEventArgs e)
         {
             EmitEvent("close");
-            Debug.Log("OnClose Socket disconnected.");
+            //Debug.Log("OnClose Socket disconnected.");
             wsConnected = false;
            
         }
 
         private void HandleOpen(Packet packet)
         {
-            Debug.Log("Received OPEN packet");
+            //Debug.Log("Received OPEN packet");
 
             sid = packet.json["sid"].str;
             EmitEvent("open");

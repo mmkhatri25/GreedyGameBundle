@@ -46,7 +46,7 @@ namespace Titli.Gameplay
             // onTimeUp();
             if(is_a_FirstRound)
             {
-                print("this is fists time  - "+ is_a_FirstRound);
+                //print("this is fists time  - "+ is_a_FirstRound);
                 // Titli_CardController.Instance._winNo = true;
                 // for(int i = 0; i < Titli_CardController.Instance.TableObjs.Count; i++)
                 // {
@@ -114,7 +114,7 @@ namespace Titli.Gameplay
 
         public void OnTimerStart(int time)
         {
-            print("OnTimerStart...");
+            //print("OnTimerStart...");
             // here is setting the stop bet....
             // if (is_a_FirstRound)
             // {
@@ -134,14 +134,14 @@ namespace Titli.Gameplay
 
             if (time >= 2)
             {
-                print("Time available - " + time);
+                //print("Time available - " + time);
             }
             else
             {
-                print("Time not available - " + time);
+                //print("Time not available - " + time);
                 for (int i = 0; i < Titli_CardController.Instance.TableObjs.Count; i++)
                 {
-                    print(" button " + Titli_CardController.Instance.TableObjs[i].name);
+                    //print(" button " + Titli_CardController.Instance.TableObjs[i].name);
                     Titli_CardController.Instance.TableObjs[i].GetComponent<BoxCollider2D>().enabled = false;
 
                 }
@@ -161,7 +161,7 @@ namespace Titli.Gameplay
             {
                 if (i == 1)
                 {
-                    Debug.Log("1 countdown - " + i);
+                    //Debug.Log("1 countdown - " + i);
 
                     startCountDown?.Invoke();
                     //countdownTxt.text = "wait..";
@@ -178,7 +178,7 @@ namespace Titli.Gameplay
 
                 if (i <= 0)
                 {
-                    Debug.Log("2 countdown - "+ i);
+                    //Debug.Log("2 countdown - "+ i);
                     countdownTxt.text = "";
 
                     //waittext.gameObject.SetActive(true);
@@ -229,7 +229,7 @@ namespace Titli.Gameplay
             {
                 // messageTxt.text = "Time Up";
                 //countdownTxt.text = "Time Up";//i.ToString();
-                print("======here counting ... " +countdownTxt.text );
+                //print("======here counting ... " +countdownTxt.text );
                 
                 yield return new WaitForSecondsRealtime(1f);
             }

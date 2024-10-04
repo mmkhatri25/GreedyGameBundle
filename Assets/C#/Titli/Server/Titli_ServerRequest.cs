@@ -32,7 +32,7 @@ namespace Titli.ServerStuff
         {
             if (socket.MyScoketDisconnected)
             {
-                Debug.Log("JoinGame on reconnect");
+                //Debug.Log("JoinGame on reconnect");
 
                 socket.MyScoketDisconnected = false;
                 StopAllCoroutines();
@@ -52,7 +52,7 @@ namespace Titli.ServerStuff
                 balance = "1000",
                 gameId = PlayerPrefs.GetString("GameId")
             };
-            Debug.Log("On RegisterPlayer gameId " + player.gameId + " , "+ player.userId + " , "+ player.balance);
+            //Debug.Log("On RegisterPlayer gameId " + player.gameId + " , "+ player.userId + " , "+ player.balance);
 
             socket.Emit("RegisterPlayer", new JSONObject( Newtonsoft.Json.JsonConvert.SerializeObject(player)) );
             //socket.Emit(Events.OnCurrentTimer);

@@ -16,19 +16,19 @@ public class Titli_InputHandler : MonoBehaviour
         //{
         //    ProjectRay();
         //}
-        print("on bet hit 11");
+        //print("on bet hit 11");
         
             ProjectRay();
         
     }
     void ProjectRay()
     {
-        print("on bet hit 22 ");
+        //print("on bet hit 22 ");
         Vector3 origin = camera.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(origin, Vector3.forward * 100);
         if (hit.collider != null)
         {
-        print("on bet hit 33");
+        //print("on bet hit 33");
         
             cardController.OnUserInput(hit.transform, hit.point);
         }

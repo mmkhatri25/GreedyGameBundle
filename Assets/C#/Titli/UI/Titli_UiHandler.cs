@@ -42,8 +42,10 @@ namespace Titli.UI
         public Text Win_Amount_text;
         public GameObject Win_Text_base;
         [SerializeField] Text balanceTxt;
-        int totalBetsValue;
+        public TextMeshProUGUI BalanceTextPro;
+        public int totalBetsValue;
 
+        public Text totalBetTexts;
 
 
         void Awake()
@@ -62,7 +64,9 @@ namespace Titli.UI
             totalBetsValue = 0;
             balance = ((double)PlayerPrefs.GetFloat("currentBalance"));
             balanceTxt.text = balance.ToString();
-      
+            BalanceTextPro.text = balance.ToString();
+
+
             // UpdateUi();
             ChipImgSelect(0);
             BgSound.Play();
@@ -197,6 +201,8 @@ namespace Titli.UI
             }
             
             balanceTxt.text = balance.ToString();
+            BalanceTextPro.text = balance.ToString();
+
             CarrotBetsTxt.text = CarrotBets.ToString();
             PapayaBetsTxt.text = PapayaBets.ToString();
             CabbageBetsTxt.text = CabbageBets.ToString();
@@ -291,24 +297,24 @@ namespace Titli.UI
 
         public void AddBets(Spots spot)
         {
-            print("1 Here Finally bets Adding on - "+ spot);
+            //print("1 Here Finally bets Adding on - "+ spot);
         
             //if (Titli_Timer.Instance.is_a_FirstRound)
             //    return;
-            print("2 Here Finally bets Adding on - "+ spot);
+            //print("2 Here Finally bets Adding on - "+ spot);
 
             balance -= (float)currentChip;
             PlayerPrefs.SetFloat("nowcoins", (float)balance);
             totalBetsValue += (int)currentChip;
-
+            totalBetTexts.text = totalBetsValue.ToString();
             switch (spot)
             {
                 case Spots.carrot:
                     CarrotBets += (int)currentChip;
                     betsholder[0] = CarrotBets; 
                     //betsholder[0] = carrotBet; 
-                   print("Spots.carrot - " + CarrotBets);
-                   print("betsholder[0] - " + betsholder[0]);
+                   //print("Spots.carrot - " + CarrotBets);
+                   //print("betsholder[0] - " + betsholder[0]);
 
                     Bet_Text[0].SetActive(true);
 
@@ -554,13 +560,27 @@ namespace Titli.UI
         public IEnumerator WinAmount(double balance_win, double win_amount)
         {
             if (win_amount <= 0) yield break;
-            Debug.Log("Balance before Win Balance"+balance_win);
+
+            Debug.Log("Balance before Win Balance ==== "+ balanceTxt.text);
             Win_Amount_text.text = "+ "+ win_amount.ToString();
             Win_Text_base.SetActive(true);
-            //balance = balance_win;
-             balance = balance+ win_amount;
-            Debug.Log("Balance After Add"+balance);
-            balanceTxt.text = balance.ToString();
+            balance = balance_win;
+            //balance = balance+ win_amount;
+            //balanceTxt.text = balance.ToString(); //1.043761E+08z
+            //balance = 1.043761E+17;
+
+            Debug.Log("Balance  " + balance);
+
+            string formattedNumber = balance.ToString("N0", System.Globalization.CultureInfo.InvariantCulture); // "N0" formats with commas and no decimal places
+
+            // Assign the formatted number to your Unity Text component
+            balanceTxt.text = formattedNumber;
+            BalanceTextPro.text = formattedNumber;
+
+            Debug.Log("Balance  formated" + formattedNumber);
+
+            Debug.Log("Balance After Add === "+ BalanceTextPro.text);
+
             yield return new WaitForSeconds(2f);
             Win_Text_base.SetActive(false);
             // PlayerPrefs.SetFloat("balance", balance);
@@ -940,9 +960,11 @@ namespace Titli.UI
         
         public void ExitLobby()
         {
+            PlayerPrefs.SetString("GameIdSaved", PlayerPrefs.GetString("GameId"));
+
             //if (Titli_UiHandler.Instance.isBetPlaced)
             //{
-                AndroidExit.instance.onExitpopup();
+            AndroidExit.instance.onExitpopup();
 
             //}
             //else
@@ -959,7 +981,7 @@ namespace Titli.UI
         {
             for (int i = 0; i < Titli_CardController.Instance.TableObjs.Count; i++)
             {
-                print(" button "+ Titli_CardController.Instance.TableObjs[i].name);
+                //print(" button "+ Titli_CardController.Instance.TableObjs[i].name);
                 Titli_CardController.Instance.TableObjs[i].GetComponent<BoxCollider2D>().enabled = false;
 
             }
@@ -969,43 +991,43 @@ namespace Titli.UI
             //Debug.Log("OnCurrentTimerReceived " + currentTimer);
 
             //return;
-            print("New server round - " + currentTimer.RoundCount + " , old saved round - "+PlayerPrefs.GetInt("RoundNumber"));
+            //print("New server round - " + currentTimer.RoundCount + " , old saved round - "+PlayerPrefs.GetInt("RoundNumber"));
 
-            if (PlayerPrefs.GetInt("RoundNumber") == currentTimer.RoundCount)
+            if (PlayerPrefs.GetInt("RoundNumber") == currentTimer.RoundCount && PlayerPrefs.GetString("GameId") == PlayerPrefs.GetString("GameIdSaved"))
             {
-                print("same game running RoundNumber - " + currentTimer.RoundCount);
+                //print("same game running RoundNumber - " + currentTimer.RoundCount + " Saved game id - "+ PlayerPrefs.GetString("GameIdSaved"));
                 if(PlayerPrefs.GetInt("isBetPlaced") == 1 /*&& PlayerPrefs.GetInt("isBetSentServer") == 0*/)
                 {
-                    print("Continue to bet  \n isBetPlaced - " + PlayerPrefs.GetInt("isBetPlaced") + " And isBetSentServer - "+ PlayerPrefs.GetInt("isBetSentServer"));
+                    //print("Continue to bet  \n isBetPlaced - " + PlayerPrefs.GetInt("isBetPlaced") + " And isBetSentServer - "+ PlayerPrefs.GetInt("isBetSentServer"));
                     if (currentTimer.gametimer >= 2)
                     {
-                        print("Time available - " + currentTimer.gametimer);
+                        //print("Time available - " + currentTimer.gametimer);
                         AutoBetApply();
                     }
                     else
                     {
-                        print("Time not available - " + currentTimer.gametimer);
+                        //print("Time not available - " + currentTimer.gametimer);
 
                     }
                 }
                 else
                 {
-                    print("else stop here \n isBetPlaced - " + PlayerPrefs.GetInt("isBetPlaced") + " And isBetSentServer - " + PlayerPrefs.GetInt("isBetSentServer"));
+                    //print("else stop here \n isBetPlaced - " + PlayerPrefs.GetInt("isBetPlaced") + " And isBetSentServer - " + PlayerPrefs.GetInt("isBetSentServer"));
                 }
 
             }
             else
             {
                 PlayerPrefs.SetInt("RoundNumber", currentTimer.RoundCount);
-                print("different game running RoundNumber - " + PlayerPrefs.GetInt("RoundNumber"));
+                //print("different game running RoundNumber - " + PlayerPrefs.GetInt("RoundNumber"));
                 if (currentTimer.gametimer >= 2)
                 {
-                    print("Time available - " + currentTimer.gametimer);
+                    //print("Time available - " + currentTimer.gametimer);
                     //AutoBetApply();
                 }
                 else
                 {
-                    print("Time not available - " + currentTimer.gametimer);
+                    //print("Time not available - " + currentTimer.gametimer);
 
                 }
             }
@@ -1078,6 +1100,7 @@ namespace Titli.UI
             }
             
             balanceTxt.text = balance.ToString();
+            BalanceTextPro.text = balance.ToString();
             int carrot_total_bets = PlayerPrefs.GetInt("CarrotBets");
             int papaya_total_bets = PlayerPrefs.GetInt("PapayaBets");
             int cabbage_total_bets = PlayerPrefs.GetInt("CabbageBets");
