@@ -169,7 +169,11 @@ namespace Titli.Gameplay
                     if (player.userIds[i].userId == PlayerPrefs.GetString("userId"))
                     {
                         win_no = player.winNo;
-                        balance_amt = player.userIds[i].balance;
+                        //balance_amt = 0;
+                        Titli_UiHandler.Instance.balance = 0;
+                        Titli_UiHandler.Instance.balance = double.Parse(player.userIds[i].balance);
+
+                        //balance_amt = double.Parse(player.userIds[i].balance);//player.userIds[i].balance;
                         win_amount = player.userIds[i].win;
                         total_bet = player.userIds[i].bat;
                         switch (win_no)
@@ -425,7 +429,7 @@ namespace Titli.Gameplay
             
         
 
-            StartCoroutine(Titli.UI.Titli_UiHandler.Instance.WinAmount(balance_amt, win_amount));
+            StartCoroutine(Titli.UI.Titli_UiHandler.Instance.WinAmount(Titli_UiHandler.Instance.balance/*balance_amt*/, win_amount));
             //PreviousWinValue.Reverse();
             //while (PreviousWinValue.Count >= previousWins.Length)
             //{
@@ -552,7 +556,7 @@ namespace Titli.Gameplay
             public string userId;
             public int bat;
             public double win;
-            public float balance;
+            public string balance;
         public User user;
     }
     

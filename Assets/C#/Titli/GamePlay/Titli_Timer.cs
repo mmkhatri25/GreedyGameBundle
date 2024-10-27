@@ -26,7 +26,7 @@ namespace Titli.Gameplay
        public TMP_Text countdownTxt, waittext;
         public Text todaywin;
         [Header ("First Time rotate wheel")]
-        public GameObject WheelToRotate;
+        public GameObject WheelToRotate, needle;
         // [SerializeField] TMP_Text messageTxt;
         private void Awake()
         {
@@ -242,23 +242,19 @@ namespace Titli.Gameplay
         public AnimationCurve rotationCurve;
         private IEnumerator Rotate360Degrees()
         {
+
             float totalRotation = 0f;
-            float duration = 9f; // Reduced total time for the rotation to make it faster
+            float rotationSpeed = 100f; // Lower value for slower rotation (degrees per second)
+            float targetRotation = 720f; // Rotate a full circle
             float elapsedTime = 0f;
 
-            while (elapsedTime < duration)
+            while (totalRotation < targetRotation)
             {
-                // Calculate the percentage of completion
-                float t = elapsedTime / duration;
+                // Calculate rotation for this frame based on speed and time
+                float rotationThisFrame = rotationSpeed * Time.deltaTime;
 
-                // Get the speed factor from the animation curve
-                float speedFactor = rotationCurve.Evaluate(t);
-
-                // Calculate rotation for this frame
-                float rotationThisFrame = speedFactor * 360 * Time.deltaTime * 1; // Increase rotation speed
-
-                // Apply rotation to the GameObject
-                WheelToRotate.transform.Rotate(0, 0, -rotationThisFrame);
+                // Apply rotation to the needle GameObject (clockwise rotation)
+                needle.transform.Rotate(0, 0, -rotationThisFrame); // Negative for clockwise
 
                 // Update total rotation
                 totalRotation += rotationThisFrame;
@@ -266,9 +262,36 @@ namespace Titli.Gameplay
                 // Update elapsed time
                 elapsedTime += Time.deltaTime;
 
-                // Wait until next frame
+                // Wait until the next frame
                 yield return null;
             }
+            //float totalRotation = 0f;
+            //float duration = 9f; // Reduced total time for the rotation to make it faster
+            //float elapsedTime = 0f;
+
+            //while (elapsedTime < duration)
+            //{
+            //    // Calculate the percentage of completion
+            //    float t = elapsedTime / duration;
+
+            //    // Get the speed factor from the animation curve
+            //    float speedFactor = rotationCurve.Evaluate(t);
+
+            //    // Calculate rotation for this frame
+            //    float rotationThisFrame = speedFactor * 360 * Time.deltaTime * 1; // Increase rotation speed
+
+            //    // Apply rotation to the GameObject
+            //    WheelToRotate.transform.Rotate(0, 0, -rotationThisFrame);
+
+            //    // Update total rotation
+            //    totalRotation += rotationThisFrame;
+
+            //    // Update elapsed time
+            //    elapsedTime += Time.deltaTime;
+
+            //    // Wait until next frame
+            //    yield return null;
+            //}
 
 
         }

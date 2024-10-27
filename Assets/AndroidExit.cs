@@ -8,6 +8,8 @@ namespace Titli.UI
     public class AndroidExit : MonoBehaviour
     {
         public static AndroidExit instance;
+        public bool isExit;
+     
         private void Awake()
         {
             instance = this;
@@ -16,9 +18,10 @@ namespace Titli.UI
 //#if UNITY_ANDROID
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && Titli_UiHandler.Instance.isBetPlaced)
+            if (Input.GetKeyDown(KeyCode.Escape) /*&& Titli_UiHandler.Instance.isBetPlaced*/)
             {
                 exitPopup.SetActive(true);
+                isExit = true;
             }
         }
 //#endif
@@ -26,6 +29,7 @@ namespace Titli.UI
         {
         //if(Titli_UiHandler.Instance.isBetPlaced)
             exitPopup.SetActive(true);
+            isExit = true;
         }
 
         public void onExityes()
@@ -35,6 +39,7 @@ namespace Titli.UI
         public void onNoExit()
         {
             exitPopup.SetActive(false);
+            isExit = false;
         }
     }
 }

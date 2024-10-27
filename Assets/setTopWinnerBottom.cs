@@ -26,10 +26,11 @@ public class setTopWinnerBottom : MonoBehaviour
 
         if (string.IsNullOrEmpty( winData.weekly.name))
         {
-            userNameWeekly.text = "";
+            userNameWeekly.text = "Winner";
         }
         else
             userNameWeekly.text = winData.weekly.name.ToString();
+
         if (string.IsNullOrEmpty(winData.daily.name))
         {
             userNameDaily.text = "Winner";
@@ -44,7 +45,7 @@ public class setTopWinnerBottom : MonoBehaviour
 
     public static IEnumerator SetImageFromURL(string pictureURL, Image imageView)
     {
-        if (pictureURL.Length > 0)
+        if (!string.IsNullOrEmpty(pictureURL))
         {
             WWW www = new WWW(pictureURL);
 
@@ -59,6 +60,11 @@ public class setTopWinnerBottom : MonoBehaviour
                     imageView.overrideSprite = sprite;
                 }
             }
+        }
+        else
+        {
+            //Debug.Log("url is null");
+
         }
     }
 }

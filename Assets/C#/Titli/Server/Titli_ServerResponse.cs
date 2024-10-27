@@ -183,7 +183,7 @@ namespace Titli.ServerStuff
         void OnCurrentTimer(SocketIOEvent e)
         {
             //currentTimer = (CurrentTimer)JsonUtility.FromJson(e.ToString(), typeof(CurrentTimer));
-            //Debug.Log("OnCurrentTimer  - "+ e.data);
+            Debug.Log("OnCurrentTimer  - "+ e.data);
             Titli_UiHandler.Instance.OnCurrentTimerReceived(e.data);
             //if(PlayerPrefs.GetInt("RoundNumber", currentTimer.RoundCount) == currentTimer.RoundCount)
             //{

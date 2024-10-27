@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Titli.Utility;
 using Titli.Gameplay;
+using Titli.UI;
 
 public class Titli_InputHandler : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public class Titli_InputHandler : MonoBehaviour
         //    ProjectRay();
         //}
         //print("on bet hit 11");
-        
+
+        if(!AndroidExit.instance.isExit)
             ProjectRay();
         
     }

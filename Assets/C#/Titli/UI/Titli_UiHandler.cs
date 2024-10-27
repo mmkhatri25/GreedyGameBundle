@@ -34,7 +34,7 @@ namespace Titli.UI
         public Text[] chip_select_text;
         public GameObject[] Bet_Text;
         public GameObject[] Bet_TextGameobject;
-        Double balance;
+        public Double balance;
         public int CarrotBets, PapayaBets, CabbageBets, TomatoBets, RollBets, HotDogBets, PizzaBets, ChickenBets;
         public int[] betsholder = new int[8];
         public Text CarrotBetsTxt, PapayaBetsTxt, CabbageBetsTxt, ChickenBetsTxt, PizzaBetsTxt, RollBetsTxt, HotDogBetsTxt, TomatoBetsTxt;
@@ -44,7 +44,6 @@ namespace Titli.UI
         [SerializeField] Text balanceTxt;
         public TextMeshProUGUI BalanceTextPro;
         public int totalBetsValue;
-
         public Text totalBetTexts;
 
 
@@ -62,7 +61,10 @@ namespace Titli.UI
             ResetUi();
             AddListeners();
             totalBetsValue = 0;
-            balance = ((double)PlayerPrefs.GetFloat("currentBalance"));
+            //Debug.Log("server currentBalance = " + PlayerPrefs.GetString("currentBalance"));
+            balance = double.Parse(PlayerPrefs.GetString("currentBalance"));
+            //Debug.Log("local currentBalance = " + balance);
+
             balanceTxt.text = balance.ToString();
             BalanceTextPro.text = balance.ToString();
 
@@ -306,7 +308,7 @@ namespace Titli.UI
             balance -= (float)currentChip;
             PlayerPrefs.SetFloat("nowcoins", (float)balance);
             totalBetsValue += (int)currentChip;
-            totalBetTexts.text = totalBetsValue.ToString();
+            //totalBetTexts.text = totalBetsValue.ToString();
             switch (spot)
             {
                 case Spots.carrot:
@@ -572,8 +574,6 @@ namespace Titli.UI
             Debug.Log("Balance  " + balance);
 
             string formattedNumber = balance.ToString("N0", System.Globalization.CultureInfo.InvariantCulture); // "N0" formats with commas and no decimal places
-
-            // Assign the formatted number to your Unity Text component
             balanceTxt.text = formattedNumber;
             BalanceTextPro.text = formattedNumber;
 
@@ -991,35 +991,35 @@ namespace Titli.UI
             //Debug.Log("OnCurrentTimerReceived " + currentTimer);
 
             //return;
-            //print("New server round - " + currentTimer.RoundCount + " , old saved round - "+PlayerPrefs.GetInt("RoundNumber"));
+            print("New server round - " + currentTimer.RoundCount + " , old saved round - "+PlayerPrefs.GetInt("RoundNumber") + " , current game id "+ PlayerPrefs.GetString("GameId") + " , saved game id " + PlayerPrefs.GetString("GameIdSaved"));
 
             if (PlayerPrefs.GetInt("RoundNumber") == currentTimer.RoundCount && PlayerPrefs.GetString("GameId") == PlayerPrefs.GetString("GameIdSaved"))
             {
-                //print("same game running RoundNumber - " + currentTimer.RoundCount + " Saved game id - "+ PlayerPrefs.GetString("GameIdSaved"));
+                print("same game running RoundNumber - " + currentTimer.RoundCount + " Saved game id - "+ PlayerPrefs.GetString("GameIdSaved"));
                 if(PlayerPrefs.GetInt("isBetPlaced") == 1 /*&& PlayerPrefs.GetInt("isBetSentServer") == 0*/)
                 {
                     //print("Continue to bet  \n isBetPlaced - " + PlayerPrefs.GetInt("isBetPlaced") + " And isBetSentServer - "+ PlayerPrefs.GetInt("isBetSentServer"));
                     if (currentTimer.gametimer >= 2)
                     {
-                        //print("Time available - " + currentTimer.gametimer);
+                        print("Time available - " + currentTimer.gametimer);
                         AutoBetApply();
                     }
                     else
                     {
-                        //print("Time not available - " + currentTimer.gametimer);
+                        print("Time not available - " + currentTimer.gametimer);
 
                     }
                 }
                 else
                 {
-                    //print("else stop here \n isBetPlaced - " + PlayerPrefs.GetInt("isBetPlaced") + " And isBetSentServer - " + PlayerPrefs.GetInt("isBetSentServer"));
+                    print("else stop here \n isBetPlaced - " + PlayerPrefs.GetInt("isBetPlaced") + " And isBetSentServer - " + PlayerPrefs.GetInt("isBetSentServer"));
                 }
 
             }
             else
             {
                 PlayerPrefs.SetInt("RoundNumber", currentTimer.RoundCount);
-                //print("different game running RoundNumber - " + PlayerPrefs.GetInt("RoundNumber"));
+                print("different game running RoundNumber - " + PlayerPrefs.GetInt("RoundNumber"));
                 if (currentTimer.gametimer >= 2)
                 {
                     //print("Time available - " + currentTimer.gametimer);

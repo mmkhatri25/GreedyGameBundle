@@ -21,6 +21,7 @@ namespace SocketIO
         public string userIdUat, userIdLive, userIdVar;
         public string GameId;
 
+        [Serializable]
         public class BalanceREsponse
         {
             public int status;
@@ -29,7 +30,7 @@ namespace SocketIO
         }
         public class Result
         {
-            public float currentBalance;
+            public string currentBalance;
             public bool isCoinSeller;
             public string name, gameId, storeId;
         }
@@ -171,8 +172,8 @@ namespace SocketIO
                     //Debug.Log("result   " + result.result.name);
                     if (result.status == 200)
                     {
-                        //Debug.Log("Data Recieved successfully.... " + www.downloadHandler.text);
-                        PlayerPrefs.SetFloat("currentBalance", result.result.currentBalance);
+                        Debug.Log("Data Recieved successfully.... " + www.downloadHandler.text);
+                        PlayerPrefs.SetString("currentBalance", result.result.currentBalance);
                         PlayerPrefs.SetString("gameId", result.result.gameId);
                         //Debug.Log("==== result on   GetDataApi gameid - " + result.result.gameId);
                         PlayerPrefs.SetString("storeId", result.result.storeId);
