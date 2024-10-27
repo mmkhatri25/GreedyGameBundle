@@ -244,7 +244,7 @@ namespace Titli.Gameplay
         {
 
             float totalRotation = 0f;
-            float rotationSpeed = 100f; // Lower value for slower rotation (degrees per second)
+            float rotationSpeed = 90f; // Lower value for slower rotation (degrees per second)
             float targetRotation = 720f; // Rotate a full circle
             float elapsedTime = 0f;
 

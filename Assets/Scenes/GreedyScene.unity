@@ -368,7 +368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &13750970
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10973,7 +10973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &666442210
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19692,7 +19692,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.7685185, y: 0.93949383}
   m_AnchorMax: {x: 1, y: 0.9568881}
-  m_AnchoredPosition: {x: 376.57474, y: 119.54648}
+  m_AnchoredPosition: {x: 376.5747, y: 119.54648}
   m_SizeDelta: {x: 226.85185, y: 4.63958}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1242718552
@@ -26677,6 +26677,12 @@ MonoBehaviour:
   wheel: {fileID: 0}
   spinDuration: 1
   ItemsForSpin: []
+  testNumber: {fileID: 0}
+  spinDurations: 3
+  extraRounds: 2
+  maxSpeed: 500
+  itemAngleOffset: 45
+  rotationSpeed: 100
 --- !u!114 &1678121501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26727,6 +26733,7 @@ MonoBehaviour:
   waittext: {fileID: 359896593}
   todaywin: {fileID: 649453860}
   WheelToRotate: {fileID: 0}
+  needle: {fileID: 0}
   rotationCurve:
     serializedVersion: 2
     m_Curve: []
@@ -27204,6 +27211,7 @@ MonoBehaviour:
   - {fileID: 405455636}
   - {fileID: 1556183850}
   - {fileID: 2028389626}
+  balance: 0
   CarrotBets: 0
   PapayaBets: 0
   CabbageBets: 0
@@ -30426,6 +30434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f72b0a0c0a79647168d0e4fd10072b61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isExit: 0
   exitPopup: {fileID: 1372230361}
 --- !u!1 &1877783945
 GameObject:

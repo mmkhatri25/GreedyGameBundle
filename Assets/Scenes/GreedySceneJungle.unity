@@ -368,7 +368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &13750970
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5298,7 +5298,7 @@ GameObject:
   - component: {fileID: 268383009}
   - component: {fileID: 268383008}
   m_Layer: 5
-  m_Name: Papaya_Parent
+  m_Name: Bull_Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8165,7 +8165,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2, y: -9}
+  m_AnchoredPosition: {x: 13, y: -9}
   m_SizeDelta: {x: 88.263, y: 97.393}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &474913235
@@ -8188,7 +8188,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 585395e140f07424385439ce131a4fbb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 88e696771a53c4bf7bc53187c54a8bdc, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -9273,7 +9273,7 @@ GameObject:
   - component: {fileID: 533316049}
   - component: {fileID: 533316048}
   m_Layer: 5
-  m_Name: Tomato_Parent
+  m_Name: Elephant_Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11241,7 +11241,7 @@ GameObject:
   - component: {fileID: 636298886}
   - component: {fileID: 636298885}
   m_Layer: 5
-  m_Name: carrot_Parent
+  m_Name: Zebra_Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11715,7 +11715,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &666442210
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12414,7 +12414,7 @@ GameObject:
   - component: {fileID: 710885939}
   - component: {fileID: 710885938}
   m_Layer: 5
-  m_Name: Pizza_Parent
+  m_Name: Hyna_Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15661,7 +15661,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 101, y: -98}
+  m_AnchoredPosition: {x: 94, y: -107}
   m_SizeDelta: {x: 117.774, y: 113.71}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &910097644
@@ -15684,7 +15684,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dcbd677cff4594f3097340dd77353fc2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 585395e140f07424385439ce131a4fbb, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -16826,7 +16826,7 @@ GameObject:
   - component: {fileID: 1000862678}
   - component: {fileID: 1000862677}
   m_Layer: 5
-  m_Name: Cabbage_Parent
+  m_Name: Dear_Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17290,8 +17290,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 80, y: 80}
-  m_SizeDelta: {x: 130.663, y: 138.3}
+  m_AnchoredPosition: {x: 66.2, y: 83}
+  m_SizeDelta: {x: 113.566, y: 120.201}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1039873869
 MonoBehaviour:
@@ -17313,7 +17313,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 88e696771a53c4bf7bc53187c54a8bdc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f22206327c31b4ef884fd0d158681678, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -21259,7 +21259,7 @@ GameObject:
   - component: {fileID: 1207186128}
   - component: {fileID: 1207186127}
   m_Layer: 5
-  m_Name: Chicken_Parent
+  m_Name: Cheetah_Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25799,8 +25799,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.7, y: -23}
-  m_SizeDelta: {x: 89.683, y: 111.097}
+  m_AnchoredPosition: {x: 1.7, y: -28.726}
+  m_SizeDelta: {x: 98.927, y: 122.55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1460208062
 MonoBehaviour:
@@ -25822,7 +25822,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f22206327c31b4ef884fd0d158681678, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dcbd677cff4594f3097340dd77353fc2, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -27799,7 +27799,7 @@ GameObject:
   - component: {fileID: 1556547892}
   - component: {fileID: 1556547891}
   m_Layer: 5
-  m_Name: HotDog_Parent
+  m_Name: Boar_Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29874,7 +29874,7 @@ GameObject:
   - component: {fileID: 1675791833}
   - component: {fileID: 1675791832}
   m_Layer: 5
-  m_Name: Roll_Parent
+  m_Name: Lion_Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30167,14 +30167,14 @@ MonoBehaviour:
   - {fileID: 213449396}
   - {fileID: 1353506253}
   Imgs:
-  - {fileID: 21300000, guid: f22206327c31b4ef884fd0d158681678, type: 3}
-  - {fileID: 21300000, guid: 585395e140f07424385439ce131a4fbb, type: 3}
+  - {fileID: 21300000, guid: dcbd677cff4594f3097340dd77353fc2, type: 3}
+  - {fileID: 21300000, guid: 88e696771a53c4bf7bc53187c54a8bdc, type: 3}
   - {fileID: 21300000, guid: 17a12244e625a450cada6009ea6bc2df, type: 3}
   - {fileID: 21300000, guid: 44021398d62d74d35aaa18d74bb357da, type: 3}
   - {fileID: 21300000, guid: c2c242ed258294cbb949a4a831177f0c, type: 3}
-  - {fileID: 21300000, guid: 88e696771a53c4bf7bc53187c54a8bdc, type: 3}
+  - {fileID: 21300000, guid: f22206327c31b4ef884fd0d158681678, type: 3}
   - {fileID: 21300000, guid: 4d96c016ffc1947bcaac46ca07fae7d1, type: 3}
-  - {fileID: 21300000, guid: dcbd677cff4594f3097340dd77353fc2, type: 3}
+  - {fileID: 21300000, guid: 585395e140f07424385439ce131a4fbb, type: 3}
   - {fileID: 21300000, guid: e79b9c5c929ae4d4aa01f888881d07ab, type: 3}
   - {fileID: 21300000, guid: d3c0b92a3dd21402e97ae9bc82319ec1, type: 3}
   previousWins:
