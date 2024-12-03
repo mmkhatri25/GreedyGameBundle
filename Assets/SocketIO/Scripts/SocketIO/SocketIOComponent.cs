@@ -96,6 +96,19 @@ namespace SocketIO
             return string.Empty;
         }
 
+        public static Action SocketConnect, SocketDisconnect;
+
+        private void OnEnable()
+        {
+            SocketConnect += Connect;
+            SocketDisconnect += Close;
+        }
+        private void OnDisable()
+        {
+            SocketConnect -= Connect;
+            SocketDisconnect -= Close;
+        }
+
         public void Awake()
         {
             if (instance == null)
@@ -108,13 +121,6 @@ namespace SocketIO
                 Destroy(this.gameObject);
             }
 
-
-            // Set URL based on environment
-            //if (isUAT)
-            //    url = UAT_url;
-            //else
-            //    url = Production_url;
-            //Debug.Log("==== socketIOclass");
             #if (UNITY_EDITOR)
                  if (isUAT)
                      url = UAT_url;
@@ -157,6 +163,7 @@ namespace SocketIO
                 Connect();
         }
 
+
         public void Connect()
         {
             connected = true;
@@ -166,7 +173,7 @@ namespace SocketIO
 
             pingThread = new Thread(RunPingThread);
             pingThread.Start(ws);
-            //Debug.Log("in Connect() now ");
+            Debug.Log("in Connect() now " + socketThread.ThreadState) ;
         }
 
         public void Update()
@@ -414,6 +421,8 @@ namespace SocketIO
         {
             Packet packet = new Packet(EnginePacketType.MESSAGE, SocketPacketType.DISCONNECT, 0, "/", -1, new JSONObject(string.Empty));
             EmitPacket(packet);
+            Debug.Log("in DisConnect() now " + socketThread.ThreadState);
+
         }
 
         private void EmitPacket(Packet packet)

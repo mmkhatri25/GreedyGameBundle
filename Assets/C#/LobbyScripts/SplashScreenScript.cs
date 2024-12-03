@@ -175,6 +175,7 @@ namespace SocketIO
                         Debug.Log("Data Recieved successfully.... " + www.downloadHandler.text);
                         PlayerPrefs.SetString("currentBalance", result.result.currentBalance);
                         PlayerPrefs.SetString("gameId", result.result.gameId);
+                        PlayerPrefs.SetString("GameIdSaved", PlayerPrefs.GetString("GameId"));
                         //Debug.Log("==== result on   GetDataApi gameid - " + result.result.gameId);
                         PlayerPrefs.SetString("storeId", result.result.storeId);
                         PlayerPrefs.SetString("name", result.result.name);

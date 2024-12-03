@@ -47,6 +47,17 @@ namespace Titli.UI
         public Text totalBetTexts;
 
 
+
+        public void OnSocketConnect()
+        {
+            SocketIOComponent.SocketConnect?.Invoke();
+
+        }
+        public void OnSocketDisConnect()
+        {
+            SocketIOComponent.SocketDisconnect?.Invoke();
+
+        }
         void Awake()
         {
             Instance = this;
@@ -295,7 +306,6 @@ namespace Titli.UI
             chip_select_text[ind].color = Color.white;
         }
 
-        int carrotBet, papyabet, cabagebet, tomatobet, rollbet, hotdogbet, pizzbet, checkenbet;
 
         public void AddBets(Spots spot)
         {
@@ -347,7 +357,7 @@ namespace Titli.UI
                     Bet_Text[2].SetActive(true);
                     isBetPlaced = true;
                     PlayerPrefs.SetInt("isBetPlaced", isBetPlaced ? 1 : 0);
-                    PlayerPrefs.SetInt("CabbageBets", cabagebet);
+                    PlayerPrefs.SetInt("CabbageBets", CabbageBets);
                     
                     break;
                 case Spots.tomato:
@@ -1057,7 +1067,7 @@ namespace Titli.UI
             if (PlayerPrefs.GetInt("CabbageBets") > 0)
             {
                 Bet_TextGameobject[2].SetActive(true);
-                PapayaBetsTxt1.text = PlayerPrefs.GetInt("CabbageBets").ToString();
+                CabbageBetsTxt1.text = PlayerPrefs.GetInt("CabbageBets").ToString();
                 balance -= PlayerPrefs.GetInt("CabbageBets");
 
                 Debug.Log("CabbageBets: " + PlayerPrefs.GetInt("CabbageBets"));
@@ -1068,6 +1078,8 @@ namespace Titli.UI
                 Bet_TextGameobject[3].SetActive(true);
                 TomatoBetsTxt1.text = PlayerPrefs.GetInt("TomatoBets").ToString();
                 balance -= PlayerPrefs.GetInt("TomatoBets");
+                Debug.Log("TomatoBets: " + PlayerPrefs.GetInt("TomatoBets"));
+
 
             }
             if (PlayerPrefs.GetInt("RollBets") > 0)
@@ -1075,6 +1087,8 @@ namespace Titli.UI
                 Bet_TextGameobject[4].SetActive(true);
                 RollBetsTxt1.text = PlayerPrefs.GetInt("RollBets").ToString();
                 balance -= PlayerPrefs.GetInt("RollBets");
+                Debug.Log("RollBets: " + PlayerPrefs.GetInt("RollBets"));
+
 
             }
             if (PlayerPrefs.GetInt("HotDogBets") > 0)
@@ -1083,12 +1097,16 @@ namespace Titli.UI
                 HotDogBetsTxt1.text = PlayerPrefs.GetInt("HotDogBets").ToString();
                 balance -= PlayerPrefs.GetInt("HotDogBets");
 
+                Debug.Log("HotDogBets: " + PlayerPrefs.GetInt("HotDogBets"));
+
             }
             if (PlayerPrefs.GetInt("PizzaBets") > 0)
             {
                 Bet_TextGameobject[6].SetActive(true);
                 PizzaBetsTxt1.text = PlayerPrefs.GetInt("PizzaBets").ToString();
                 balance -= PlayerPrefs.GetInt("PizzaBets");
+                Debug.Log("PizzaBets: " + PlayerPrefs.GetInt("PizzaBets"));
+
 
             }
             if (PlayerPrefs.GetInt("ChickenBets") > 0)
@@ -1096,9 +1114,10 @@ namespace Titli.UI
                 Bet_TextGameobject[7].SetActive(true);
                 ChickenBetsTxt1.text = PlayerPrefs.GetInt("ChickenBets").ToString();
                 balance -= PlayerPrefs.GetInt("ChickenBets");
+                Debug.Log("ChickenBets: " + PlayerPrefs.GetInt("ChickenBets"));
 
             }
-            
+
             balanceTxt.text = balance.ToString();
             BalanceTextPro.text = balance.ToString();
             int carrot_total_bets = PlayerPrefs.GetInt("CarrotBets");
